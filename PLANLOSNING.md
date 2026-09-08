@@ -29,3 +29,10 @@ Kopplingar som stöds av bilderna:
 - Bastun nås från badrummet.
 
 Husets yttre kontur, fönster som inte syns tydligt och hur alla mått passar mot samma stomme är antaganden. Tomma ytor i planvyn är inte uppfunna rum. Detta är en redigerbar tolkning av husets synliga delar, inte en skannad eller måttexakt kopia. Mått, öppningar och möbelplaceringar kan korrigeras i `dist/model.js` utan att byta navigationsmotor.
+
+
+## Rättelse, modell 3
+
+Version 2 hade fel höger/vänster-riktning. Rumskoordinater, öppningar, inredning och trappans geometri har speglats tillsammans med gångkollisionerna. Bild 0090 styr glasräcke/allrum till vänster och sovalkov till höger när man går upp; bild 0087 styr kök till höger och entré till vänster sett från lekrummet. Sovalkovens sänghuvud och snedtak har dessutom rättats efter bild 0093. Detta löser identifierade orienteringsfel; det gör inte den tidigare uppskattade planlösningen måttexakt.
+
+Trädgård och garage är ännu inte modellerade eftersom verifierat underlag saknas. Exteriörbilder eller situationsplan behövs för en korrekt rekonstruktion.

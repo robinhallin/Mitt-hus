@@ -84,7 +84,7 @@ export function furniture(obj){const c=CATALOG[obj.type],g=new THREE.Group(),m=m
  case 'bench':{for(let i=0;i<6;i++)box(g,0,.53,-d/2+.065+i*.1,w,.055,.087,m,.008);for(const x of [-1,1])box(g,x*(w/2-.1),.26,0,.07,.52,d-.15,m);for(let i=0;i<6;i++)box(g,0,.72+i*.1,-d/2+.045,w,.08,.04,m,.005);break;}
  case 'heater':{box(g,0,.39,0,.43,.69,.43,metal,.025);for(let i=0;i<5;i++)box(g,0,.17+i*.09,.223,.37,.015,.01,black);for(let i=0;i<10;i++)ellipsoid(g,Math.sin(i*2.4)*.14,.75+(i%2)*.035,Math.cos(i*2.4)*.14,.07,.05,.07,black);break;}
  }
- batchMeshes(g);g.position.set(obj.x,0,obj.z);g.rotation.y=obj.rotation;g.scale.setScalar(obj.scale);g.userData.objectId=obj.id;g.traverse(ch=>{if(ch.isMesh)ch.userData.objectId=obj.id;});return g;
+ batchMeshes(g);g.position.set(obj.x,0,obj.z);g.rotation.y=obj.rotation;g.scale.set(obj.mirrored?-obj.scale:obj.scale,obj.scale,obj.scale);g.userData.objectId=obj.id;g.traverse(ch=>{if(ch.isMesh)ch.userData.objectId=obj.id;});return g;
 }
 
 const textures=new Map();
@@ -126,10 +126,10 @@ export class HouseWorld{
  }
  const ceiling=new THREE.Group();g.add(ceiling);this.ceilings.push({g:ceiling,r});
  // The ground-floor stairwell is cut out of the ceiling, including the turn.
- if(r.id==='hall'){const strip=(x0,z0,x1,z1)=>box(ceiling,(x0+x1)/2-r.x,2.67,(z0+z1)/2-r.z,x1-x0,.08,z1-z0,white);strip(0,2.3,.5,7.2);strip(.5,4.35,4.2,7.2);strip(1.55,3.4,4.2,4.35);}
+ if(r.id==='hall'){const strip=(x0,z0,x1,z1)=>box(ceiling,-((x0+x1)/2-r.sourceX),2.67,(z0+z1)/2-r.z,x1-x0,.08,z1-z0,white);strip(0,2.3,.5,7.2);strip(.5,4.35,4.2,7.2);strip(1.55,3.4,4.2,4.35);}
  else box(ceiling,0,2.67,0,r.w,.08,r.d,white);
  if(r.slope){const ew=r.slope==='e'||r.slope==='w',run=1.15,rise=1.25;const sl=box(ceiling,ew?(r.slope==='e'?1:-1)*(r.w/2-run/2):0,2.03,ew?0:(r.slope==='s'?1:-1)*(r.d/2-run/2),ew?Math.hypot(run,rise):r.w,.06,ew?r.d:Math.hypot(run,rise),white);if(ew)sl.rotation.z=(r.slope==='w'?1:-1)*Math.atan2(rise,run);else sl.rotation.x=(r.slope==='n'?-1:1)*Math.atan2(rise,run);}
- this.details(rec);batchMeshes(g);
+ const details=new THREE.Group();details.scale.x=-1;g.add(details);this.details({...rec,g:details,r:{...r,x:r.sourceX}});batchMeshes(g);
  }
  wallPiece(g,x,w,h,m){box(g,x,h/2,0,w,h,.1,m);box(g,x,.065,.064,w,.13,.026,white);box(g,x,2.59,.06,w,.07,.04,white);}
  window(g,x,w,bottom,top,r){const h=top-bottom;box(g,x,(top+bottom)/2,-.012,w,h,.015,mat('#c2d4d4',{emissive:'#bed5d8',emissiveIntensity:.42,roughness:.2}));const parts=w>2?3:2;for(let i=0;i<=parts;i++)box(g,x-w/2+i*w/parts,(top+bottom)/2,.018,.045,h+.08,.08,white);for(const y of [bottom,top])box(g,x,y,.025,w+.1,.06,.13,white);box(g,x,bottom,.095,w+.18,.045,.27,white);
@@ -148,7 +148,7 @@ export class HouseWorld{
  }
  if(r.id==='kids'){const canopy=mat('#f6f2e9',{transparent:true,opacity:.35,side:THREE.DoubleSide,depthWrite:false});box(g,.69,1.1,-.4,.99,1.55,.006,canopy);for(let i=0;i<3;i++){box(g,-1.25,1.42,-.3+i*.47,.022,.32,.25,wood);box(g,-1.233,1.42,-.3+i*.47,.008,.26,.2,mat(['#dcc5b3','#a9b5a6','#bba69e'][i]));}}
  }
- buildStairs(){this.stairs=new THREE.Group();this.root.add(this.stairs);const g=this.stairs,s=STAIR,w=s.turnX-s.x0;
+ buildStairs(){this.stairs=new THREE.Group();this.root.add(this.stairs);this.stairs.scale.x=-1;this.stairs.position.x=8;const g=this.stairs,s=STAIR,w=s.turnX-s.x0;
  for(let i=0;i<4;i++){const z=s.bottomZ-(i+.5)*(s.bottomZ-s.z1)/4;box(g,(s.x0+s.turnX)/2,(i+1)*s.turnHeight/4-.03,z,w,.06,(s.bottomZ-s.z1)/4+.015,wood);}
  box(g,(s.x0+s.turnX)/2,s.turnHeight-.035,(s.z0+s.z1)/2,w,.07,s.z1-s.z0,wood);
  const n=13;for(let i=0;i<n;i++){const x=s.turnX+(i+.5)*(s.x1-s.turnX)/n,y=s.turnHeight+(i+1)*(H-s.turnHeight)/n;box(g,x,y-.03,(s.z0+s.z1)/2,(s.x1-s.turnX)/n+.012,.06,s.z1-s.z0,wood);}
@@ -158,7 +158,7 @@ export class HouseWorld{
  for(const x of [s.x0+.025,s.turnX-.025])beam(g,[x,.9,s.bottomZ],[x,s.turnHeight+.9,s.z1],.04,wood);batchMeshes(g);
  }
  addObject(obj,roomId=this.room.id){const rec=this.rooms.get(roomId),g=furniture(obj);g.userData.roomId=roomId;g.traverse(ch=>{if(ch.isMesh)ch.userData.roomId=roomId;});rec.g.add(g);this.objects.set(obj.id,g);rec.objects.set(obj.id,g);}
- updateObject(obj,rebuild=false){const g=this.objects.get(obj.id);if(rebuild&&g){const id=g.userData.roomId;g.parent.remove(g);disposeGroup(g);this.addObject(obj,id);}else if(g){g.position.set(obj.x,0,obj.z);g.rotation.y=obj.rotation;g.scale.setScalar(obj.scale);}this.updateSelector();}
+ updateObject(obj,rebuild=false){const g=this.objects.get(obj.id);if(rebuild&&g){const id=g.userData.roomId;g.parent.remove(g);disposeGroup(g);this.addObject(obj,id);}else if(g){g.position.set(obj.x,0,obj.z);g.rotation.y=obj.rotation;g.scale.set(obj.mirrored?-obj.scale:obj.scale,obj.scale,obj.scale);}this.updateSelector();}
  removeObject(id){const g=this.objects.get(id);if(g){g.parent.remove(g);disposeGroup(g);this.rooms.get(g.userData.roomId).objects.delete(id);this.objects.delete(id);}this.select(null);}
  paint(color){this.wallMat.color.set(color);}
  select(id){this.selected=id;this.updateSelector();}

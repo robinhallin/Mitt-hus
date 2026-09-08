@@ -3,7 +3,7 @@ import {HouseWorld} from './world.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const icon=name=>`<svg aria-hidden="true"><use href="#i-${name}"/></svg>`;
-const STORAGE='robin-house-design-v2';
+const STORAGE='robin-house-design-v3';
 let state=clone(DEFAULT_STATE),room=ROOMS.find(r=>r.id==='hall'),selected=null,mode='overview',history=[],dirty=false,evening=false,photoIndex=0,toastTimer,rangeEditing=false,loaded=false;
 try{const raw=localStorage.getItem(STORAGE);if(raw){const data=JSON.parse(raw),valid=validateState(data);if(valid){state=valid;room=ROOMS.find(r=>r.id===data.room)||room;loaded=true;}}}catch{}
 let world;
@@ -28,7 +28,7 @@ function goRoom(id){const next=ROOMS.find(r=>r.id===id);if(!next||next.id===room
 function setMode(next){if(mode===next)return;mode=next;world.setMode(mode);$('#workspace').classList.toggle('walk',mode==='walk');$('#joystick').hidden=mode!=='walk';$('#walk-hint').hidden=mode!=='walk';$$('[data-mode]').forEach(btn=>{const active=btn.dataset.mode===mode;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});$('#scene-sub').textContent=mode==='edit'?'Välj en möbel · Dra för att flytta':mode==='walk'?'WASD / styrspak · Dra för att titta':'Hela våningen · Dra för att vrida';document.body.classList.toggle('walking',mode==='walk');drawMap();renderSelection();if(mode==='walk'){closePanel();toast('Gå med styrspaken eller WASD. Dra för att titta.');}else if(mode==='edit'&&!selected)toast('Tryck på en möbel för att börja inreda.');}
 function refresh(){$('#floor-name').textContent=room.floor?'ÖVERVÅNING':'NEDERVÅNING';$('#room-name').textContent=room.name;$('#reference-img').src='./photos/'+room.photos[0]+'.jpg';$('#reference-img').alt='Ditt foto av '+room.name.toLowerCase();$('#reference').hidden=false;renderRooms();renderSurfaces();renderFurniture();renderSelection();drawMap();$('#room-measure').textContent=`≈ ${room.w.toFixed(1).replace('.',',')} × ${room.d.toFixed(1).replace('.',',')} m`;}
 function showPhoto(){const file=room.photos[photoIndex];$('#large-photo').src='./photos/'+file+'.jpg';$('#large-photo').alt='Originalfoto av '+room.name.toLowerCase();$('#photo-title').textContent=room.name;$('#photo-index').textContent=`${photoIndex+1} / ${room.photos.length}`;$('#photo-prev').disabled=room.photos.length<2;$('#photo-next').disabled=room.photos.length<2;}
-function save(){try{localStorage.setItem(STORAGE,JSON.stringify({version:2,room:room.id,rooms:state}));dirty=false;$('#save-status').textContent='Sparat i den här webbläsaren.';$('#save').classList.remove('unsaved');toast('Sparat! Dina ändringar finns kvar nästa gång här.');}catch{toast('Det gick inte att spara. Webbläsarens lagring är full eller avstängd.');}}
+function save(){try{localStorage.setItem(STORAGE,JSON.stringify({version:3,room:room.id,rooms:state}));dirty=false;$('#save-status').textContent='Sparat i den här webbläsaren.';$('#save').classList.remove('unsaved');toast('Sparat! Dina ändringar finns kvar nästa gång här.');}catch{toast('Det gick inte att spara. Webbläsarens lagring är full eller avstängd.');}}
 function undo(){const last=history.pop();if(!last)return;state=last.state;room=ROOMS.find(r=>r.id===last.room);selected=null;world.load(room,state);world.evening(evening);changed();refresh();$('#undo').disabled=!history.length;toast('Senaste ändringen är ångrad.');}
 function followRoom(next){room=next;selected=null;refresh();}
 function drawMap(){const svg=$('#floor-plan');if(!svg)return;
@@ -36,9 +36,9 @@ function drawMap(){const svg=$('#floor-plan');if(!svg)return;
  for(const r of ROOMS.filter(r=>r.floor===room.floor)){
  content+=`<rect x="${r.x-r.w/2}" y="${r.z-r.d/2}" width="${r.w}" height="${r.d}" fill="${r.id===room.id?'#cfe582':'#e5e2d6'}" stroke="#64716b" stroke-width=".07"/><text x="${r.x}" y="${r.z}" text-anchor="middle" dominant-baseline="middle" font-size=".26" fill="#34443e">${({kitchen:'Kök',living:'Vardagsrum',playroom:'Lekrum',hall:'Hall',allrum:'Allrum',alcove:'Sovalkov',kids:'Barnrum',bedroom:'Sovrum',bathroom:'Bad',office:'Kontor',sauna:'Bastu',landing:'Hall'})[r.id]}</text>`;}
  for(const d of OPENINGS.filter(d=>ROOMS.find(r=>r.id===d.a).floor===room.floor))content+=d.axis==='x'?`<line x1="${d.at}" x2="${d.at}" y1="${d.lo}" y2="${d.hi}" stroke="#faf9f1" stroke-width=".15"/>`:`<line y1="${d.at}" y2="${d.at}" x1="${d.lo}" x2="${d.hi}" stroke="#faf9f1" stroke-width=".15"/>`;
- content+='<path d="M1 4.3 V2.85 H4.2" stroke="#a68962" stroke-width=".8" fill="none"/>';
+ content+='<g transform="translate(8 0) scale(-1 1)"><path d="M1 4.3 V2.85 H4.2" stroke="#a68962" stroke-width=".8" fill="none"/>';
  for(let x=1.5;x<4.2;x+=.21)content+=`<line x1="${x}" x2="${x}" y1="2.44" y2="3.26" stroke="#faf9f1" stroke-width=".05"/>`;
- content+='<path d="M3.7 2.6 L4.05 2.85 L3.7 3.1" fill="none" stroke="#34443e" stroke-width=".09"/><g id="map-person"><path d="M0 -.6 L-.3 -.1 L.3 -.1 Z" fill="#243f46" opacity=".4"/><circle r=".17" fill="#173f4b" stroke="#fff" stroke-width=".06"/></g>';svg.innerHTML=content;$('#map-floor').textContent=room.floor?'Övervåning':'Nedervåning';}
+ content+='<path d="M3.7 2.6 L4.05 2.85 L3.7 3.1" fill="none" stroke="#34443e" stroke-width=".09"/></g><g id="map-person"><path d="M0 -.6 L-.3 -.1 L.3 -.1 Z" fill="#243f46" opacity=".4"/><circle r=".17" fill="#173f4b" stroke="#fff" stroke-width=".06"/></g>';svg.innerHTML=content;$('#map-floor').textContent=room.floor?'Övervåning':'Nedervåning';}
 let lastMap=0;
 function updateMapPosition(p){if(performance.now()-lastMap<70)return;lastMap=performance.now();const person=$('#map-person');if(person){person.setAttribute('transform',`translate(${p.x} ${p.z}) rotate(${-p.yaw*180/Math.PI})`);person.style.display=mode==='walk'?'':'none';}}
 function installUI(){

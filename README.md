@@ -22,7 +22,7 @@ python3 -m http.server 8000 --directory dist
 
 Se `PLANLOSNING.md`. `dist/model.js` innehåller rumsgränser, delade öppningar, möbler och mått i meter. `dist/navigation.js` använder samma öppningar som geometrin och en höjdfunktion för trappan. `dist/world.js` bygger alla rum samtidigt; gång mellan rum laddar inte om modellen. Statiska delar grupperas i instanser för färre ritoperationer.
 
-Sparformat 2 använder en ny lagringsnyckel. Sparningar från den tidigare separata rumsmodellen skrivs inte över eller förs över till de ändrade måtten.
+Sparformat 3 använder en ny lagringsnyckel. Sparningar från den tidigare separata rumsmodellen skrivs inte över eller förs över till de ändrade måtten.
 
 Den här offentliga GitHub-kopian innehåller inga originalfoton. Koden döljer fotoreferenser när bilderna saknas. Den privata webbversionen har fotona som jämförelseunderlag.
 
@@ -31,6 +31,7 @@ Den här offentliga GitHub-kopian innehåller inga originalfoton. Koden döljer 
 ```sh
 node tests/navigation.mjs
 node tests/geometry.mjs
+node tests/orientation.mjs
 ```
 
-Kontrollerna verifierar sammanhängande gång med möbelkollisioner, upp- och nedstigning, gemensamma dörrgränser, giltiga geometrier, rumshöjder, redigering och sparformat. Ingen visuell webbläsargranskning har gjorts för version 2.
+Kontrollerna verifierar sammanhängande gång med möbelkollisioner, upp- och nedstigning, gemensamma dörrgränser, giltiga geometrier, rumshöjder, redigering och sparformat. Ingen visuell webbläsargranskning har gjorts för version 3.

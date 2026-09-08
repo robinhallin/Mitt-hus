@@ -56,6 +56,22 @@ export const OPENINGS=[
 ];
 export const LEVEL_HEIGHT=2.85;
 export const STAIR={x0:.5,x1:4.2,z0:2.3,z1:3.4,bottomZ:4.35,turnX:1.55,turnHeight:.66};
+// Photograph anchors: looking UP the stairs, glass/sofa LEFT and alcove RIGHT.
+// Looking from the playroom towards the living room, kitchen RIGHT, entry LEFT.
+// Version 2 reversed this handedness. Correct the model coordinates themselves.
+export const mirrorX=x=>8-x;
+for(const r of ROOMS){
+ r.sourceX=r.x;r.x=mirrorX(r.x);
+ for(const obj of r.objects){obj.x=-obj.x;obj.rotation=-obj.rotation;obj.mirrored=true;}
+ for(const w of r.windows){if(w.edge==='e')w.edge='w';else if(w.edge==='w')w.edge='e';else w.offset=-w.offset;}
+ if(r.slope==='e')r.slope='w';else if(r.slope==='w')r.slope='e';
+}
+// IMG_0093: head of alcove bed against the full-height left wall when
+// looking towards its window; the eave is on the right, beside the half-wall.
+const alcove=ROOMS.find(r=>r.id==='alcove');alcove.slope='s';
+Object.assign(alcove.objects.find(o=>o.type==='bed'),{x:.45,z:0,rotation:0});
+ROOMS.find(r=>r.id==='allrum').slope='n';
+for(const d of OPENINGS){if(d.axis==='x')d.at=mirrorX(d.at);else {const oldLo=d.lo;d.lo=mirrorX(d.hi);d.hi=mirrorX(oldLo);}}
 for(const r of ROOMS){
  for(const d of OPENINGS.filter(d=>d.a===r.id||d.b===r.id)){
   const edge=d.axis==='x'?(d.at<r.x?'w':'e'):(d.at<r.z?'n':'s');
@@ -70,4 +86,4 @@ export function blocked(x,z,room,objects){if(Math.abs(x)>room.w/2-.19||Math.abs(
 export function doorPosition(door,room,inset=0){const {edge,offset}=door;if(edge==='n')return {x:offset,z:-room.d/2+inset,yaw:Math.PI};if(edge==='s')return {x:offset,z:room.d/2-inset,yaw:0};if(edge==='e')return {x:room.w/2-inset,z:offset,yaw:Math.PI/2};return {x:-room.w/2+inset,z:offset,yaw:-Math.PI/2};}
 export function safeSpawn(room,objects,from){const door=room.doors.find(d=>d.to===from)||room.doors[0];const start=door?doorPosition(door,room,.65):{x:0,z:0,yaw:0};if(!blocked(start.x,start.z,room,objects))return start;for(let radius=.4;radius<6;radius+=.3){for(let a=0;a<Math.PI*2;a+=.3){const x=start.x+Math.sin(a)*radius,z=start.z+Math.cos(a)*radius;if(!blocked(x,z,room,objects))return {x,z,yaw:start.yaw};}}return {x:0,z:0,yaw:0};}
 export function findPlacement(room,objects,type){const proto={type,rotation:0,scale:1,x:0,z:0};for(let radius=0;radius<7;radius+=.25){for(let a=0;a<Math.PI*2;a+=.5){const candidate=constrain({...proto,x:Math.sin(a)*radius,z:Math.cos(a)*radius},room);const d=dimensions(candidate);if(!objects.some(o=>{if(CATALOG[o.type].flat||CATALOG[type].flat)return false;const b=dimensions(o);return Math.abs(candidate.x-o.x)<(d.w+b.w)/2+.06&&Math.abs(candidate.z-o.z)<(d.d+b.d)/2+.06;}))return candidate;}}return null;}
-export function validateState(value){if(!value||value.version!==2||!value.rooms)return null;const rooms=clone(DEFAULT_STATE);for(const room of ROOMS){const s=value.rooms[room.id];if(!s||!/^#[a-f\d]{6}$/i.test(s.wall)||!FLOORS.some(f=>f[0]===s.flooring)||!Array.isArray(s.objects)||s.objects.length>80)return null;const ids=new Set();for(const obj of s.objects){if(!obj||!Object.hasOwn(CATALOG,obj.type)||typeof obj.id!=='string'||!/^[-a-z0-9]{1,80}$/i.test(obj.id)||ids.has(obj.id)||![obj.x,obj.z,obj.rotation,obj.scale].every(Number.isFinite)||obj.scale<.5||obj.scale>1.6||!/^#[a-f\d]{6}$/i.test(obj.color))return null;ids.add(obj.id);constrain(obj,room);}rooms[room.id]=clone(s);}return rooms;}
+export function validateState(value){if(!value||value.version!==3||!value.rooms)return null;const rooms=clone(DEFAULT_STATE);for(const room of ROOMS){const s=value.rooms[room.id];if(!s||!/^#[a-f\d]{6}$/i.test(s.wall)||!FLOORS.some(f=>f[0]===s.flooring)||!Array.isArray(s.objects)||s.objects.length>80)return null;const ids=new Set();for(const obj of s.objects){if(!obj||!Object.hasOwn(CATALOG,obj.type)||typeof obj.id!=='string'||!/^[-a-z0-9]{1,80}$/i.test(obj.id)||ids.has(obj.id)||![obj.x,obj.z,obj.rotation,obj.scale].every(Number.isFinite)||obj.scale<.5||obj.scale>1.6||!/^#[a-f\d]{6}$/i.test(obj.color))return null;ids.add(obj.id);constrain(obj,room);}rooms[room.id]=clone(s);}return rooms;}

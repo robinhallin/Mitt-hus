@@ -1,7 +1,7 @@
-import {ROOMS,CATALOG,LEVEL_HEIGHT as H,STAIR,dimensions,safeSpawn} from './model.js';
+import {ROOMS,CATALOG,LEVEL_HEIGHT as H,STAIR,mirrorX,dimensions,safeSpawn} from './model.js';
 export const RADIUS=.17;
-export const inside=(x,z,r,pad=0)=>x>=r.x-r.w/2+pad&&x<=r.x+r.w/2-pad&&z>=r.z-r.d/2+pad&&z<=r.z+r.d/2-pad;
-export function stairHeight(x,z){const s=STAIR;
+export const inside=(x,z,r,pad=0)=>x>=r.x-r.w/2+pad-1e-8&&x<=r.x+r.w/2-pad+1e-8&&z>=r.z-r.d/2+pad-1e-8&&z<=r.z+r.d/2-pad+1e-8;
+export function stairHeight(x,z){x=mirrorX(x);const s=STAIR;
  if(x>=s.x0&&x<=s.turnX&&z>=s.z1&&z<=s.bottomZ)return (s.bottomZ-z)/(s.bottomZ-s.z1)*s.turnHeight;
  if(x>=s.x0&&x<=s.turnX&&z>=s.z0&&z<=s.z1)return s.turnHeight;
  if(x>=s.turnX&&x<=s.x1&&z>=s.z0&&z<=s.z1)return s.turnHeight+(x-s.turnX)/(s.x1-s.turnX)*(H-s.turnHeight);
@@ -10,7 +10,7 @@ export function stairHeight(x,z){const s=STAIR;
 export function wallHoles(r,edge){const width=edge==='n'||edge==='s'?r.w:r.d;
  let holes=r.doors.filter(d=>d.edge===edge).map(d=>({lo:d.offset-d.width/2,hi:d.offset+d.width/2,bottom:0,top:d.open?2.68:2.12,kind:'door'}));
  holes.push(...r.windows.filter(d=>d.edge===edge).map(d=>({lo:d.offset-d.width/2,hi:d.offset+d.width/2,bottom:d.bottom??.87,top:2.2,kind:'window'})));
- if(r.id==='landing'&&edge==='w')holes.push({lo:2.3-r.z,hi:3.4-r.z,bottom:0,top:2.68,kind:'stair'});
+ if(r.id==='landing'&&edge==='e')holes.push({lo:2.3-r.z,hi:3.4-r.z,bottom:0,top:2.68,kind:'stair'});
  return holes.sort((a,b)=>a.lo-b.lo).map(h=>({...h,lo:Math.max(-width/2,h.lo),hi:Math.min(width/2,h.hi)}));
 }
 export function wallSegments(r,edge){const width=edge==='n'||edge==='s'?r.w:r.d;let at=-width/2,result=[];for(const h of wallHoles(r,edge)){if(h.bottom===0){if(h.lo>at)result.push([at,h.lo]);at=Math.max(at,h.hi);}}if(at<width/2)result.push([at,width/2]);return result;}
@@ -23,7 +23,7 @@ export const WALLS=walls;
 function hitsSegment(x,z,w,radius){const along=w.axis==='x'?z:x,cross=w.axis==='x'?x:z;return Math.hypot(cross-w.at,along-Math.max(w.lo,Math.min(w.hi,along)))<radius+.055;}
 export function roomAt(x,z,y){return ROOMS.find(r=>Math.abs(r.floor*H-y)<.22&&inside(x,z,r))||null;}
 function objectHit(x,z,r,objects){return objects.some(o=>{if(CATALOG[o.type].flat)return false;
- const dx=x-r.x-o.x,dz=z-r.z-o.z,co=Math.cos(o.rotation),si=Math.sin(o.rotation),lx=(dx*co-dz*si)/o.scale,lz=(dx*si+dz*co)/o.scale,p=RADIUS/o.scale,c=CATALOG[o.type];
+ const dx=x-r.x-o.x,dz=z-r.z-o.z,co=Math.cos(o.rotation),si=Math.sin(o.rotation),lx=(dx*co-dz*si)/o.scale*(o.mirrored?-1:1),lz=(dx*si+dz*co)/o.scale,p=RADIUS/o.scale,c=CATALOG[o.type];
  // The U-shaped kitchen has a walkable centre, not one solid bounding box.
  if(o.type==='kitchen')return (lx>1.07-p&&lx<1.78+p&&lz>-1.4-p&&lz<1.4+p)||(Math.abs(lx)<1.78+p&&lz<-.73+p&&lz>-1.4-p)||(lx>-.48-p&&lx<1.78+p&&lz>.72-p&&lz<1.4+p);
  return Math.abs(lx)<c.w/2+p&&Math.abs(lz)<c.d/2+p;
@@ -31,11 +31,11 @@ function objectHit(x,z,r,objects){return objects.some(o=>{if(CATALOG[o.type].fla
 export function walkTarget(x,z,feet,state,{ignoreObjects=false}={}){
  const sy=stairHeight(x,z);
  if(sy!==null&&Math.abs(sy-feet)<.21){
-  const s=STAIR;
+  const s=STAIR,sx=mirrorX(x);
   // No entry through the side rail. Only the low end and upper landing connect.
-  if(z<s.z0+RADIUS||x<s.x0+RADIUS)return null;
-  if(x>s.turnX-RADIUS&&z>s.z1-RADIUS&&z<s.bottomZ&&x<s.x1)return null;
-  if(x<s.turnX&&z>s.z1&&x>s.turnX-RADIUS)return null;
+  if(z<s.z0+RADIUS||sx<s.x0+RADIUS)return null;
+  if(sx>s.turnX-RADIUS&&z>s.z1-RADIUS&&z<s.bottomZ&&sx<s.x1)return null;
+  if(sx<s.turnX&&z>s.z1&&sx>s.turnX-RADIUS)return null;
   return {x,z,y:sy,room:feet>H-.3?'landing':'hall',stairs:true};
  }
  const r=roomAt(x,z,feet);if(!r||sy!==null&&r.floor===0&&sy<1.88)return null;
