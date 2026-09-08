@@ -56,3 +56,14 @@ Samtliga 42 tillgängliga foton (0074–0083, 0086–0117) har granskats. Alla f
 Gångtester når samtliga tolv modellerade utrymmen och passerar trappan i båda riktningarna. Geometri- och orienteringstester passerar. Ingen renderad webbläsarjämförelse har kunnat göras: det befintliga statiska projektet saknar utvecklingsserver som stöds av förhandsvisningen. Visuell överensstämmelse är därför inte verifierad på pixelnivå.
 
 Vardagsrummets utsträckning ändrades för att dess köksöppning ska ligga på rätt innervägg. Den nya ytterkonturen är fortfarande en hypotes, inte en uppmätt plan. Trädgård och garage saknar tillräckligt bild-/ritningsunderlag och är inte återskapade.
+
+
+## Strukturell kontroll, modell 5
+
+Efter den negativa återkopplingen renderades scenens faktiska trianglar separat för åtta referensvyer. Detta är en kontroll av geometri och placering, inte en återgivning av webbspelets exakta ljus: den tillgängliga webbläsaren har WebGL avstängt. En fungerande Vite-förhandsvisning finns nu i projektet, men webbläsaren kan därför ännu inte verifiera slutlig grafik.
+
+Kontrollen visade en garderob framför entrén, en bakvägg till duschen vänd in i rummet, en dold mörk badrumsvägg och en sovrumsgardin på fel sida. Dessa är rättade. Entrén har också fått en riktig väggöppning bakom dörr och sidoglas. Placeringen är fortfarande en fotobaserad uppskattning. Trappans tidigare vilplan är ersatt med tre kilsteg; gånghöjden följer samma vinkel. Rätt sidovägg är nu ett sammanhängande snitt, inte 26 separata skivor. Trappans exakta stegmått är inte kända.
+
+Den överdrivna vidvinkeln i datorns gångläge är minskad till 82 graders horisontellt synfält. Parkettens stavar har mindre dimensioner, med längsgående ådring. Sängarnas separata ovala former har ersatts av sammanhängande veckad tyggeometri.
+
+Rummens fullständiga proportioner och hela husets ytterkontur är fortfarande inte lösta. Denna uppdatering rättar identifierade fel; den uppfyller ännu inte målet om en verklighetstrogen komplett rekonstruktion.

@@ -2,14 +2,15 @@ import {ROOMS,CATALOG,LEVEL_HEIGHT as H,STAIR,mirrorX,dimensions,safeSpawn} from
 export const RADIUS=.17;
 export const inside=(x,z,r,pad=0)=>x>=r.x-r.w/2+pad-1e-8&&x<=r.x+r.w/2-pad+1e-8&&z>=r.z-r.d/2+pad-1e-8&&z<=r.z+r.d/2-pad+1e-8;
 export function stairHeight(x,z){x=mirrorX(x);const s=STAIR;
- if(x>=s.x0&&x<=s.turnX&&z>=s.z1&&z<=s.bottomZ)return (s.bottomZ-z)/(s.bottomZ-s.z1)*s.turnHeight;
- if(x>=s.x0&&x<=s.turnX&&z>=s.z0&&z<=s.z1)return s.turnHeight;
+ if(x>=s.x0&&x<=s.turnX&&z>=s.z1&&z<=s.bottomZ)return (s.bottomZ-z)/(s.bottomZ-s.z1)*s.lowerHeight;
+ if(x>=s.x0&&x<=s.turnX&&z>=s.z0&&z<=s.z1)return s.lowerHeight+Math.atan2(s.z1-z,s.turnX-x)/(Math.PI/2)*(s.turnHeight-s.lowerHeight);
  if(x>=s.turnX&&x<=s.x1&&z>=s.z0&&z<=s.z1)return s.turnHeight+(x-s.turnX)/(s.x1-s.turnX)*(H-s.turnHeight);
  return null;
 }
 export function wallHoles(r,edge){const width=edge==='n'||edge==='s'?r.w:r.d;
  let holes=r.doors.filter(d=>d.edge===edge).map(d=>({lo:d.offset-d.width/2,hi:d.offset+d.width/2,bottom:0,top:d.open?2.68:2.12,kind:'door'}));
  holes.push(...r.windows.filter(d=>d.edge===edge).map(d=>({lo:d.offset-d.width/2,hi:d.offset+d.width/2,bottom:d.bottom??.87,top:2.2,kind:'window'})));
+ if(r.id==='hall'&&edge==='e')holes.push({lo:4.05-r.z-.775,hi:4.05-r.z+.775,bottom:0,top:2.18,kind:'entry'});
  if(r.id==='landing'&&edge==='e')holes.push({lo:2.3-r.z,hi:3.4-r.z,bottom:0,top:2.68,kind:'stair'});
  return holes.sort((a,b)=>a.lo-b.lo).map(h=>({...h,lo:Math.max(-width/2,h.lo),hi:Math.min(width/2,h.hi)}));
 }
