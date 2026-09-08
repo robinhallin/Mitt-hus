@@ -1,13 +1,13 @@
-# Underlag och antaganden, modell 2
+# Underlag och antaganden, modell 4
 
 Alla mått är uppskattade. Bilderna används för inredning, siktlinjer och rumskopplingar. Dörrar omkring 0,9 m, sängar omkring 1,8 × 2,0 m och köksmoduler omkring 0,6 m används som skalreferenser. Fotoperspektiv kan ge stora fel, särskilt i rummens djup.
 
 | Utrymme | Modellmått | Underlag |
 |---|---|---|
 | Kök och matplats | 3,8 × 7,2 m | Köksdelen, halvön, matbordet, fönsterväggen och bokhyllorna |
-| Hall och trappa | 4,2 × 4,9 m | Entré, skjutdörrsgarderob, trappsväng och siktlinjen mot vardagsrummet |
+| Hall och trappa | 4,2 × 3,3 m | Entré, skjutdörrsgarderob, trappsväng och siktlinjen mot vardagsrummet |
 | Lekrum | 4,2 × 2,3 m | Dörr under trappan, leksaksförvaring och heltäckningsmatta |
-| Vardagsrum | 8,0 × 3,8 m | Bara delvis synligt genom öppningarna; utsträckning och fönster är osäkra |
+| Vardagsrum | 4,2 × 5,4 m | Bara delvis synligt genom öppningarna; utsträckning och fönster är osäkra |
 | Sovalkov | 4,2 × 2,3 m | Säng, spjälsäng och halvvägg med träöverliggare vid trappan |
 | Allrum | 4,2 × 3,8 m | Soffa längs glasräcket, soffbord, öppen TV-hylla och tre fönster-/dörrfält |
 | Övre hall | 1,2 × 7,2 m | Sammanbinder trappa, sovalkov, barnrum, kontor och badrum; längden är osäker |
@@ -36,3 +36,23 @@ Husets yttre kontur, fönster som inte syns tydligt och hur alla mått passar mo
 Version 2 hade fel höger/vänster-riktning. Rumskoordinater, öppningar, inredning och trappans geometri har speglats tillsammans med gångkollisionerna. Bild 0090 styr glasräcke/allrum till vänster och sovalkov till höger när man går upp; bild 0087 styr kök till höger och entré till vänster sett från lekrummet. Sovalkovens sänghuvud och snedtak har dessutom rättats efter bild 0093. Detta löser identifierade orienteringsfel; det gör inte den tidigare uppskattade planlösningen måttexakt.
 
 Trädgård och garage är ännu inte modellerade eftersom verifierat underlag saknas. Exteriörbilder eller situationsplan behövs för en korrekt rekonstruktion.
+
+
+## Fotogenomgång, modell 4
+
+Samtliga 42 tillgängliga foton (0074–0083, 0086–0117) har granskats. Alla finns som privata jämförelsebilder med ungefärliga kameravyer. Bildernas perspektiv har inte kalibrerats med kända mått. Jämförelsevyerna är hjälpmedel, inte bevis på måttriktighet.
+
+| Bildgrupp | Konstaterat och ändrat | Kvarstående begränsning |
+|---|---|---|
+| 0074–0081 kök/hall | Matbord på längden, två öppningar i innerväggen, sammanhängande bokhylla på bortre väggen, svart diskho/kran, diskmaskinsfront och diagonal spisundersida | Exakta modulbredder, lampor och småföremål skiljer sig |
+| 0082–0087 lekrum | Heltäckningsmatta utan påhittad lös matta, grå garderob, hushylla och träförvaring | Leksaker, dörrblad och garderobsmått är förenklade |
+| 0088–0092 trappa | Vit högersida och handledare, glas på vänstersidan uppåt, öppen barngrind ovanför | Kvartssvängen är fortfarande ett förenklat vilplan, inte de verkliga kilstegen |
+| 0093–0095 alkoven | Sängkappa, veckad bäddning, oval spjälsäng, runt sidobord och ensidig gardin | Taklutning och sängens exakta avstånd till halvväggen är uppskattade |
+| 0096–0101 allrum/barnrum | Balkongdörr med två fönster och radiator, hussängens tyg över båda taksidorna, pinnstolar ersätter massiva standardryggar i köket | Fönsterproportioner, textilmönster och väggdjup är ungefärliga |
+| 0102–0105 kontor/passage | Kontorsstol med hjul, synligt ventilationsrör; alla bildvinklar tillgängliga | Hallens totala längd och rumsanslutningarnas exakta inbördes avstånd är inte lösta |
+| 0106–0111 sovrum | Vägg-TV bredvid fönstret, ensidig gardin, sängkappa och bäddning | Spjälsängens detaljer och tygmönster saknas |
+| 0112–0117 badrum/bastu | Fondväggen lämnar fönstret öppet, mörk klinker, duschglas, badkar och glasblock; alla foton ingår | Kommod, bastudörr och lav är fortfarande förenklade modeller |
+
+Gångtester når samtliga tolv modellerade utrymmen och passerar trappan i båda riktningarna. Geometri- och orienteringstester passerar. Ingen renderad webbläsarjämförelse har kunnat göras: det befintliga statiska projektet saknar utvecklingsserver som stöds av förhandsvisningen. Visuell överensstämmelse är därför inte verifierad på pixelnivå.
+
+Vardagsrummets utsträckning ändrades för att dess köksöppning ska ligga på rätt innervägg. Den nya ytterkonturen är fortfarande en hypotes, inte en uppmätt plan. Trädgård och garage saknar tillräckligt bild-/ritningsunderlag och är inte återskapade.

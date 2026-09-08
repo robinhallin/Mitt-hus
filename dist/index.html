@@ -34,12 +34,13 @@
  </header>
  <nav class="room-nav" aria-label="Rummen i huset"><div class="nav-heading"><span>DITT HUS</span><span id="room-count">12 rum</span></div><div id="room-list"></div><div class="nav-foot"><span class="model-tag">FOTOMODELL 03</span><p>Byggt utifrån dina foton.<br>Planlösning och mått är ungefärliga.</p></div></nav>
  <main class="workspace" id="workspace">
-  <div id="scene" aria-label="Interaktiv 3D-modell av huset" tabindex="0"></div>
+  <section id="comparison" hidden aria-label="Jämför originalfoto och modell"><div class="compare-head"><strong>Originalfoto</strong><button id="compare-close" class="button">Stäng jämförelse</button></div><img id="compare-photo" alt=""><p id="compare-caption"></p><div class="compare-controls"><button id="compare-prev" class="button" aria-label="Föregående jämförelse">←</button><button id="compare-reset" class="button">Återställ kameravinkel</button><button id="compare-next" class="button" aria-label="Nästa jämförelse">→</button></div><p id="compare-note"></p><small>Kameravinkel och mått är uppskattade. Dra i 3D-vyn för att titta.</small></section>
+ <div id="scene" aria-label="Interaktiv 3D-modell av huset" tabindex="0"></div>
   <div class="scene-heading"><span id="floor-name" class="eyebrow">ÖVERVÅNING</span><h1 id="room-name">Allrum</h1><span id="room-measure" class="room-measure"></span><p id="scene-sub">Dra för att vrida · Nyp för att zooma</p></div>
   <div class="view-actions"><button id="lighting" class="glass-button" aria-pressed="false"><svg><use href="#i-sun"/></svg><span>Dagsljus</span></button><button id="center-view" class="icon-button glass" aria-label="Centrera vyn" title="Centrera vyn"><svg><use href="#i-home"/></svg></button></div>
   <div id="loading" class="loading"><span class="loader"></span><strong>Öppnar ditt hus…</strong></div>
   <div id="scene-error" class="scene-error" hidden><h2>3D-vyn kunde inte öppnas</h2><p>Prova att öppna länken i Safari eller Chrome och ladda om sidan.</p><button onclick="location.reload()" class="button primary">Försök igen</button></div>
-  <button id="reference" class="reference"><img id="reference-img" src="./photos/allrum-1.jpg" alt="Foto av ditt allrum"><span><svg><use href="#i-photo"/></svg> Ditt foto</span></button>
+  <button id="reference" class="reference"><img id="reference-img" src="./photos/allrum-1.jpg" alt="Foto av ditt allrum"><span><svg><use href="#i-photo"/></svg> Jämför med foto</span></button>
   <details class="map-card" open><summary><span id="map-floor">Nedervåning</span><span>Plan</span></summary><svg id="floor-plan" viewBox="-.3 -.3 8.6 11.6" role="img" aria-label="Planlösning och din position"></svg><small>Uppskattade mått</small></details>
   <div id="joystick" class="joystick" hidden role="group" aria-label="Gå med styrspaken"><span id="stick"></span><b>GÅ</b></div>
   <div id="walk-hint" hidden>Gå genom dörrarna och uppför trappan · Q/E vrider vyn</div>
@@ -59,15 +60,7 @@
 <dialog id="catalog-dialog"><div class="dialog-head"><div><span class="eyebrow">PROVA NÅGOT NYTT</span><h2>Lägg till en möbel</h2></div><button data-close="catalog-dialog" class="icon-button" aria-label="Stäng möbelkatalog"><svg><use href="#i-close"/></svg></button></div><div id="catalog" class="catalog"></div></dialog>
 <dialog id="help-dialog"><div class="dialog-head"><h2>Välkommen hem, Robin.</h2><button data-close="help-dialog" class="icon-button" aria-label="Stäng hjälp"><svg><use href="#i-close"/></svg></button></div><div class="help-content"><p>Utforska huset och prova dina idéer.</p><dl><dt>Överblick</dt><dd>Dra för att vrida hela våningen. Nyp eller använd mushjulet för att zooma.</dd><dt>Gå runt</dt><dd>Mobil: gå med styrspaken och dra på rummet för att titta. Dator: WASD eller piltangenter för att gå, dra med musen för att titta. Gå direkt genom dörröppningarna och upp eller ner för trappan. Q/E vrider vyn utan mus. Shift ger snabbare gång. Rumlistan är en genväg om du vill hoppa till ett rum.</dd><dt>Inred</dt><dd>Tryck på en möbel och dra den över golvet. Verktygen låter dig rotera, flytta, ändra storlek och byta färg. R roterar och Escape släpper markeringen.</dd><dt>Spara</dt><dd>Dina ändringar sparas i den här webbläsaren när du trycker Spara. De synkas inte mellan enheter. Ångra tar tillbaka senaste ändringen.</dd></dl><p class="model-note">Modellen tolkar dina foton. Rummens mått, dörrlägen och kopplingar är ungefärliga. Det här är ett sätt att prova inredning, inte en byggritning.</p></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
-<script>
-document.addEventListener('error', function(event) {
-  const photo = event.target;
-  if (!(photo instanceof HTMLImageElement)) return;
-  const reference = photo.closest('#reference');
-  if (reference) reference.hidden = true;
-  else photo.hidden = true;
-}, true);
-</script>
+<script>document.addEventListener('error',function(event){const photo=event.target;if(!(photo instanceof HTMLImageElement))return;const reference=photo.closest('#reference');if(reference)reference.hidden=true;else photo.hidden=true;},true);</script>
 <script type="module" src="./app.js"></script>
 <script>window.addEventListener('error',()=>{if(!window.houseReady){document.getElementById('loading').hidden=true;document.getElementById('scene-error').hidden=false;}});</script>
 </body>
