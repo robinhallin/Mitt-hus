@@ -1,0 +1,6 @@
+dist/photos/*
+!dist/photos/README.md
+.DS_Store
+node_modules/
+.env
+.env.*

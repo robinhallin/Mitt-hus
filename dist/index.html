@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15252c"><meta name="description" content="Gå runt i ditt hus i 3D. Flytta möbler, prova färger och hitta nästa idé för ditt hem.">
+  <title>Mitt hus · Inred & utforska</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315252c'/%3E%3Cpath d='M14 30L32 14L50 30V50H37V36H27V50H14Z' fill='%23d5ef76'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+<svg class="icon-defs" xmlns="http://www.w3.org/2000/svg"><defs>
+ <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></symbol>
+ <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+ <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="m7 12 3-4 4 1 3 4 4 1M12 9l-2 7-4 5m5-7 4 2 1 5"/></symbol>
+ <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 4 6 6M3 21l5-1L21 7a2 2 0 0 0 0-3l-1-1a2 2 0 0 0-3 0L4 16Z"/></symbol>
+ <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h12l4 4v14H3V3Z"/><path d="M7 3v6h9V3M7 21v-8h10v8"/></symbol>
+ <symbol id="i-undo" viewBox="0 0 24 24"><path d="m8 4-5 5 5 5M3 9h10a7 7 0 0 1 0 14"/></symbol>
+ <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+ <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1"/><path d="m3 18 6-6 4 4 3-3 5 5"/></symbol>
+ <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+ <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+ <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 8a9 9 0 1 0 1 9M20 3v6h-6"/></symbol>
+ <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+ <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+ <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-11v1"/></symbol>
+ <symbol id="i-sofa" viewBox="0 0 24 24"><path d="M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M5 14h14M3 10v9h18v-9M5 19v2m14-2v2"/></symbol>
+</defs></svg>
+<div id="app">
+ <header class="topbar">
+  <a href="./" class="brand" aria-label="Mitt hus, startsida"><span class="brand-icon"><svg><use href="#i-home"/></svg></span><span>mitt hus<span class="brand-small">INRED & UTFORSKA</span></span></a>
+  <span class="project-label">Robins hus <span>/</span> Fotobaserad modell</span>
+  <div class="top-actions"><button id="undo" class="icon-button" title="Ångra senaste ändringen" aria-label="Ångra senaste ändringen" disabled><svg><use href="#i-undo"/></svg></button><button id="help" class="icon-button" aria-label="Hjälp"><svg><use href="#i-info"/></svg></button><button id="save" class="button primary"><svg><use href="#i-save"/></svg><span>Spara</span></button></div>
+ </header>
+ <nav class="room-nav" aria-label="Rummen i huset"><div class="nav-heading"><span>DITT HUS</span><span id="room-count">9 rum</span></div><div id="room-list"></div><div class="nav-foot"><span class="model-tag">UTKAST 01</span><p>Byggt utifrån dina foton.<br>Planlösning och mått är ungefärliga.</p></div></nav>
+ <main class="workspace" id="workspace">
+  <div id="scene" aria-label="Interaktiv 3D-modell av huset" tabindex="0"></div>
+  <div class="scene-heading"><span id="floor-name" class="eyebrow">ÖVERVÅNING</span><h1 id="room-name">Allrum</h1><p id="scene-sub">Dra för att vrida · Nyp för att zooma</p></div>
+  <div class="view-actions"><button id="lighting" class="glass-button" aria-pressed="false"><svg><use href="#i-sun"/></svg><span>Dagsljus</span></button><button id="center-view" class="icon-button glass" aria-label="Centrera vyn" title="Centrera vyn"><svg><use href="#i-home"/></svg></button></div>
+  <div id="loading" class="loading"><span class="loader"></span><strong>Öppnar ditt hus…</strong></div>
+  <div id="scene-error" class="scene-error" hidden><h2>3D-vyn kunde inte öppnas</h2><p>Prova att öppna länken i Safari eller Chrome och ladda om sidan.</p><button onclick="location.reload()" class="button primary">Försök igen</button></div>
+  <button id="reference" class="reference"><img id="reference-img" src="./photos/allrum-1.jpg" alt="Foto av ditt allrum"><span><svg><use href="#i-photo"/></svg> Ditt foto</span></button>
+  <div id="portal-hint" hidden><button id="enter-room" class="button primary"></button></div>
+  <div id="joystick" class="joystick" hidden role="group" aria-label="Gå med styrspaken"><span id="stick"></span><b>GÅ</b></div>
+  <div id="walk-hint" hidden>Dra på rummet för att titta runt</div>
+  <div class="mode-bar" role="group" aria-label="Visningsläge"><button data-mode="overview" class="active" aria-pressed="true"><svg><use href="#i-grid"/></svg><span>Överblick</span></button><button data-mode="walk" aria-pressed="false"><svg><use href="#i-walk"/></svg><span>Gå runt</span></button><button data-mode="edit" aria-pressed="false"><svg><use href="#i-edit"/></svg><span>Inred</span></button></div>
+  <button id="mobile-panel" class="mobile-panel button" aria-expanded="false"><svg><use href="#i-edit"/></svg>Färg & möbler</button>
+ </main>
+ <aside id="inspector" class="inspector" aria-label="Inredningsverktyg">
+  <div class="inspector-head"><div><span class="eyebrow">GÖR DET TILL DITT</span><h2>Inred rummet</h2></div><button id="close-panel" class="icon-button" aria-label="Stäng verktygen"><svg><use href="#i-close"/></svg></button></div>
+  <div id="selection-editor" hidden></div>
+  <div class="tool-section"><h3>Väggfärg <span id="wall-name">Varmgrå</span></h3><div id="wall-swatches" class="swatches"></div><label class="custom-color">Välj egen nyans<input id="wall-custom" type="color" value="#d4cfc6" aria-label="Egen väggfärg"></label></div>
+  <div class="tool-section"><h3>Golv</h3><div id="floor-options" class="floor-options"></div></div>
+  <div class="tool-section"><div class="section-title"><h3>Möbler i rummet</h3><button id="add-furniture" class="small-add" aria-label="Lägg till möbel"><svg><use href="#i-plus"/></svg></button></div><p class="muted">Välj en möbel för att ändra den.</p><div id="furniture-list"></div></div>
+  <div class="local-save"><svg><use href="#i-save"/></svg><span id="save-status">Spara behåller ändringarna i den här webbläsaren.</span></div>
+ </aside>
+</div>
+<dialog id="photo-dialog" class="photo-dialog"><div class="dialog-head"><div><span class="eyebrow">DINA ORIGINALBILDER</span><h2 id="photo-title">Allrum</h2></div><button data-close="photo-dialog" class="icon-button" aria-label="Stäng foton"><svg><use href="#i-close"/></svg></button></div><div class="photo-stage"><img id="large-photo" alt="Originalfoto av rummet"></div><div class="photo-controls"><button id="photo-prev" class="button" aria-label="Föregående foto">←</button><span id="photo-index"></span><button id="photo-next" class="button" aria-label="Nästa foto">→</button></div></dialog>
+<dialog id="catalog-dialog"><div class="dialog-head"><div><span class="eyebrow">PROVA NÅGOT NYTT</span><h2>Lägg till en möbel</h2></div><button data-close="catalog-dialog" class="icon-button" aria-label="Stäng möbelkatalog"><svg><use href="#i-close"/></svg></button></div><div id="catalog" class="catalog"></div></dialog>
+<dialog id="help-dialog"><div class="dialog-head"><h2>Välkommen hem, Robin.</h2><button data-close="help-dialog" class="icon-button" aria-label="Stäng hjälp"><svg><use href="#i-close"/></svg></button></div><div class="help-content"><p>Utforska huset och prova dina idéer.</p><dl><dt>Överblick</dt><dd>Dra för att vrida rummet. Nyp eller använd mushjulet för att zooma.</dd><dt>Gå runt</dt><dd>Mobil: gå med styrspaken och dra på rummet för att titta. Dator: WASD eller piltangenter för att gå, dra med musen för att titta. Gå till en dörr och välj nästa rum.</dd><dt>Inred</dt><dd>Tryck på en möbel och dra den över golvet. Verktygen låter dig rotera, flytta, ändra storlek och byta färg. R roterar och Escape släpper markeringen.</dd><dt>Spara</dt><dd>Dina ändringar sparas i den här webbläsaren när du trycker Spara. De synkas inte mellan enheter. Ångra tar tillbaka senaste ändringen.</dd></dl><p class="model-note">Modellen tolkar dina foton. Rummens mått, dörrlägen och kopplingar är ungefärliga. Det här är ett sätt att prova inredning, inte en byggritning.</p></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+// Photo references are optional in this public source repository.
+document.addEventListener('error', function(event) {
+  const photo = event.target;
+  if (!(photo instanceof HTMLImageElement)) return;
+  const reference = photo.closest('#reference');
+  if (reference) reference.hidden = true;
+  else photo.hidden = true;
+}, true);
+</script>
+<script type="module" src="./app.js"></script>
+<script>window.addEventListener('error',()=>{if(!window.houseReady){document.getElementById('loading').hidden=true;document.getElementById('scene-error').hidden=false;}});</script>
+</body>
+</html>
