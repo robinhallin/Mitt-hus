@@ -1,43 +1,36 @@
-# Mitt hus 🏠
+# Mitt hus — sammanhängande fotobaserad modell
 
-Ett 3D-spel för att utforska Robins hus och prova inredning.
-
-**Spela:** https://mitt-hus-robin.robinrhallin.chatgpt.site (privat för ägaren).
-
-## Funktioner
-
-- Nio rum, två våningar och dörrar mellan rummen.
-- Gå runt med WASD/piltangenter eller mobilens styrspak; dra för att titta.
-- Överblick i 3D och ett inredningsläge för att flytta möbler.
-- Lägg till, rotera, ändra storlek och färgsätt möbler.
-- Byt väggfärg och golv, prova dagsljus och kvällsljus.
-- Ångra ändringar och spara i den aktuella webbläsaren.
-
-Modellen tolkar foton och är ungefärlig. Planlösning, mått och kopplingar är inte en uppmätt ritning.
+Ett hus i två våningar med fri gång, en sammanhängande kvartsvängd trappa och redigerbar inredning. Måtten är uppskattningar från fotografierna, inte uppmätta byggmått.
 
 ## Kör lokalt
 
-Ingen installation eller byggning behövs. Starta en vanlig HTTP-server i `dist`:
-
-```bash
+```sh
 python3 -m http.server 8000 --directory dist
 ```
 
-Öppna sedan http://localhost:8000. Öppna genom HTTP-servern, inte genom att dubbelklicka på HTML-filen.
+Öppna http://localhost:8000. Inget byggsteg behövs. Three.js och tillägg ligger lokalt i `dist/vendor`.
 
-## Kod
+## Användning
 
-- `dist/index.html` – gränssnittet.
-- `dist/app.js` – reglage, val av möbler, ångra och sparning.
-- `dist/model.js` – rum, möbelkatalog, placering, kollision och kontroll av sparningar.
-- `dist/world.js` – 3D-modeller, kameror och spelkontroller.
-- `dist/style.css` – utseende och mobilanpassning.
-- `dist/vendor/` – Three.js 0.180.0 med dess MIT-licens. Hjälpmodulerna använder lokala importvägar.
+- WASD/piltangenter eller mobilens styrspak: gå. Dra på bilden: titta. Q/E: vrid. Shift: snabbare gång.
+- Dörrar och trappan passeras direkt i samma scen. Rumlistan ger valfria genvägar.
+- Överblick visar hela den aktuella våningen utan tak. Planvyn visar positionen.
+- Inred: välj och dra möbler, byt färg, rotera och ändra storlek. Väggar och golv kan ändras.
+- Spara lagrar ändringarna i aktuell webbläsare. Ångra återställer tidigare redigeringar.
 
-## Fotoreferenser och sparningar
+## Modell och uppskattningar
 
-Originalfotona ingår inte i detta offentliga repo. Saknade foton döljs automatiskt; 3D-spelet fungerar ändå. Den privata spelsidan har fotoreferenserna. Se `dist/photos/README.md` för lokala foton.
+Se `PLANLOSNING.md`. `dist/model.js` innehåller rumsgränser, delade öppningar, möbler och mått i meter. `dist/navigation.js` använder samma öppningar som geometrin och en höjdfunktion för trappan. `dist/world.js` bygger alla rum samtidigt; gång mellan rum laddar inte om modellen. Statiska delar grupperas i instanser för färre ritoperationer.
 
-Knappen **Spara** använder webbläsarens lokala lagring. Sparningar synkas inte mellan enheter.
+Sparformat 2 använder en ny lagringsnyckel. Sparningar från den tidigare separata rumsmodellen skrivs inte över eller förs över till de ändrade måtten.
 
-GitHub-repot innehåller spelkoden. Den privata spelsidan publiceras separat; det finns ingen automatisk publicering från GitHub.
+Den här offentliga GitHub-kopian innehåller inga originalfoton. Koden döljer fotoreferenser när bilderna saknas. Den privata webbversionen har fotona som jämförelseunderlag.
+
+## Kontroller
+
+```sh
+node tests/navigation.mjs
+node tests/geometry.mjs
+```
+
+Kontrollerna verifierar sammanhängande gång med möbelkollisioner, upp- och nedstigning, gemensamma dörrgränser, giltiga geometrier, rumshöjder, redigering och sparformat. Ingen visuell webbläsargranskning har gjorts för version 2.

@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import * as THREE from '../dist/vendor/three.module.js';
+import {HouseWorld} from '../dist/world.js';
+import {ROOMS,DEFAULT_STATE,clone,validateState} from '../dist/model.js';
+global.document={createElement:()=>({width:256,height:256,getContext:()=>({fillRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){}})})};
+const world=Object.create(HouseWorld.prototype);Object.assign(world,{mode:'overview',scene:new THREE.Scene(),camera:new THREE.PerspectiveCamera(68,1,.04,100),orbit:{target:new THREE.Vector3(),update(){}},objects:new Map(),rooms:new Map(),floorPlane:new THREE.Plane(new THREE.Vector3(0,1,0)),callbacks:{}});
+world.load(ROOMS.find(r=>r.id==='hall'),clone(DEFAULT_STATE));let meshes=0,instances=0;
+world.scene.traverse(o=>{if(o.isMesh){meshes++;assert(o.geometry?.attributes.position,'Missing geometry');for(const value of o.geometry.attributes.position.array)assert(Number.isFinite(value),'Nonfinite geometry');assert([...o.position.toArray(),...o.scale.toArray()].every(Number.isFinite),'Invalid transform');if(o.isInstancedMesh){instances+=o.count;assert(o.count<=o.instanceMatrix.count,'Instance buffer overflow');for(const value of o.instanceMatrix.array)assert(Number.isFinite(value));}}});
+world.setMode('walk');assert(Math.abs(world.camera.position.y-1.62)<1e-8);world.focus(ROOMS.find(r=>r.id==='bedroom'));assert(Math.abs(world.camera.position.y-4.47)<1e-8);assert.equal(world.rooms.size,ROOMS.length);
+const obj=world.state.objects.find(o=>o.type==='bed');world.updateObject(obj,true);world.select(obj.id);world.setMode('edit');assert(world.selector);world.load(world.room,world.allState,undefined,true);
+const saved=validateState({version:2,rooms:clone(DEFAULT_STATE)});assert(saved);assert.equal(validateState({version:1,rooms:clone(DEFAULT_STATE)}),null);
+console.log(`${meshes} meshes, ${instances} instanced parts: finite geometry; load, editing rebuild, floor focus and save validation pass.`);
