@@ -35,3 +35,11 @@ Dra bollen till en ledig golvplats: den flyger i en liten båge, Sigge hämtar d
 Fotoknappen sparar en faktisk bild från 3D-renderaren i albumet, som mest fyra rumsfoton. Foton, te, skattjakt och valda inställningar valideras och sparas utan att äldre sparningar förloras. Fotona går att ta bort individuellt.
 
 136 automatiska tester passerar. De nya testerna kör hela apportcykeln med den faktiska bollmodellen, verklig projicerad kannrörelse och hållning, bild- och sparvalidering, sökregler, Leas poser samt applikationens faktiska menyroutning. Ingen riktig webbläsare eller fysisk iPad har kunnat testas i arbetsmiljön. Geometrin granskas separat genom CPU-rendering; det verifierar inte WebGL-belysning eller faktisk pekskärmskänsla.
+
+## Rummet över hela skärmen (0.9.1)
+
+Spelkameran visar rummet inifrån, med golv och väggar genom hela bildytan. Den tidigare kameran som anpassade hela dockhusets ytterkanter används inte längre för spel. Lea visas som minst 30 procent av bildhöjden i de testade liggande skärmformaten. Verktyg är överlägg och ändrar aldrig kamerans projektion eller rummets storlek.
+
+Två fasta knappar öppnar Lek och Inred. Tryck på figurer och möbler ger små bildval direkt i rummet. I inredningsläge går det att dra möbler direkt och välja vridning eller färg. Leklådan har en ingång till lekar inne i rummet och till alla tidigare aktiviteter. Canvas och spelbehållare är låsta till hela den tillgängliga webbytan.
+
+137 tester passerar, inklusive regressionstest av rummets faktiska kameraskala och bildtäckning, oförändrad kamera när menyer öppnas samt de befintliga drag-, apport- och teinteraktionerna. Den nya scenen är separat CPU-renderad och visuellt granskad. Fysisk iPad och faktisk WebGL-rendering har fortfarande inte kunnat verifieras här.
