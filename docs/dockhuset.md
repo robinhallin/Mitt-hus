@@ -1,4 +1,4 @@
-# Leas 3D-dockhus – version 0.8
+# Leas 3D-dockhus – version 0.9
 
 Rummet är en lokal WebGL-scen med riktiga modeller av Lea, Sigge, möbler och leksaker. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
 
@@ -21,4 +21,17 @@ Kameran anpassas till stående och liggande skärm. Grafikens upplösning och bi
 
 Alla nya värden läggs till befintligt sparformat. Gamla kläder, målningar, möbler och framsteg behålls. Dörrar, gardiner, ljus, möbler, koja, bildramar och kamera sparas lokalt med resten av spelet.
 
-126 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
+136 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
+
+
+## Liggande spelvy och mer liv (0.9)
+
+Rummet fyller spelområdet med infällbar leklåda. I liggande läge visas inga permanenta sidopaneler, sidrubriker eller navigationsfält runt rummet. Den vänstra bildraden öppnar Lea, Sigge, aktiviteter och inredning. Alla tidigare aktiviteter finns kvar i lådan och får en tätare liggande layout. På stående skärm visas en uppmaning att vända enheten; det går att fortsätta stående. Manifestet önskar liggande visning. Operativsystemets stöd avgör om orienteringen kan låsas; iPad Safari kan kräva att enheten vrids manuellt.
+
+Lea har krage, sömmar, knappar, skodetaljer, tygmönster, hårlockar, fräknar, ögonfransar och blinkningar. Hon vänder sig mot kameran när hon stannar och kan vinka, hoppa och dansa. Sigge följer med i dansen. Rummet har vimplar, ljusslinga, namnskylt, korg, bok och tofflor. Väggens tidigare pyssel och målning visas även i 3D.
+
+Dra bollen till en ledig golvplats: den flyger i en liten båge, Sigge hämtar den i munnen och lämnar den på golvet. Leken kan upprepas. Dra tekannan över en kopp och håll kvar: mängden te ökar gradvis. Tryck på koppen för en klunk, bjud nallen och Sigge eller duka om. Skattjakten växlar mellan att lyfta en kudde, dra ut lådan och leta bland böckerna. Den väljer bara platser som finns kvar. En fullt vattnad blomma får en fjäril som följer fingrets rörelse i rummet.
+
+Fotoknappen sparar en faktisk bild från 3D-renderaren i albumet, som mest fyra rumsfoton. Foton, te, skattjakt och valda inställningar valideras och sparas utan att äldre sparningar förloras. Fotona går att ta bort individuellt.
+
+136 automatiska tester passerar. De nya testerna kör hela apportcykeln med den faktiska bollmodellen, verklig projicerad kannrörelse och hållning, bild- och sparvalidering, sökregler, Leas poser samt applikationens faktiska menyroutning. Ingen riktig webbläsare eller fysisk iPad har kunnat testas i arbetsmiljön. Geometrin granskas separat genom CPU-rendering; det verifierar inte WebGL-belysning eller faktisk pekskärmskänsla.

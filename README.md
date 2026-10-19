@@ -1,6 +1,8 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.8 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.9 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+
+Rummet fyller nu den liggande spelskärmen. Infällbara verktyg lämnar plats åt leken. Lea har mer detaljerade kläder, blinkningar och rörelser för att vinka, dansa och hoppa. Inne i rummet går det att kasta bollen till Sigge, hälla låtsaste genom att dra och hålla kannan, hitta gömda stjärnor, locka fram en fjäril och ta riktiga rumsfoton till albumet. Se [dockhuset](docs/dockhuset.md).
 
 Den nya [picknickdagen](docs/picknickdagen.md) binder ihop valfri packning, fingerlekar med Sigge, lera och bad, fika och ett eget foto. Fantasiparad, tebjudning och små upptäckter ger skapandet en fortsättning.
 
@@ -64,7 +66,7 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 
 ## Verifiering och nästa nivå
 
-Version 0.8 passerar 126 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
+Version 0.8 passerar 136 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
 
 ## Spela från iPads hemskärm
 
