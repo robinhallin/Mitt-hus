@@ -1,6 +1,6 @@
-# Leas rum – version 0.10.0
+# Leas rum – version 0.11.0
 
-Rummet är en lokal WebGL-scen med riktiga 3D-modeller av möbler och leksaker samt Lea och Sigges illustrerade utseende på bildplan i scenen. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
+Rummet är en lokal WebGL-scen med riktiga 3D-modeller av möbler och leksaker samt animerade 3D-modeller av Lea och Sigge. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
 
 ## Lek
 
@@ -13,7 +13,7 @@ Rummet är en lokal WebGL-scen med riktiga 3D-modeller av möbler och leksaker s
 
 ## Pekskärm
 
-Tryck på golvet så går Lea dit. Dra tom yta för att vrida kameran; använd två fingrar för zoom och rotation. Kameraknapparna ger samma kontroll utan flerfingergester. I inredningsläget går möblerna att dra, vända, färga och ta bort. Ogiltig placering visas i rött och sparas inte.
+Tryck på golvet så går Lea dit. Den isometriska vinkeln är stabil under vanliga pekgester. Plus och minus förstorar rummet och husknappen återställer hela vyn. I inredningsläget går möblerna att dra, vända, färga och ta bort. Ogiltig placering visas i rött och sparas inte.
 
 Kameran anpassas till stående och liggande skärm. Grafikens upplösning och bildfrekvens begränsas för surfplattor. När rummet lämnas frigörs grafikresurser och animationerna stoppas. Om WebGL inte kan starta visas den tidigare 2D-vyn.
 
@@ -21,7 +21,7 @@ Kameran anpassas till stående och liggande skärm. Grafikens upplösning och bi
 
 Alla nya värden läggs till befintligt sparformat. Gamla kläder, målningar, möbler och framsteg behålls. Dörrar, gardiner, ljus, möbler, koja, bildramar och kamera sparas lokalt med resten av spelet.
 
-136 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
+149 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
 
 
 ## Liggande spelvy och mer liv (0.9)

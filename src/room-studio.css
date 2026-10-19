@@ -18,3 +18,18 @@
 @media(orientation:portrait){.room-ribbon{gap:5px;padding-left:8px;padding-right:8px;height:88px}.room-menu-card{min-width:0;height:70px;border-radius:16px;font-size:10px}.room-menu-art{width:43px;height:39px}.room-studio .room-wordmark{font-size:17px}.room-tool>span:last-child{display:none}.room-tool{padding:8px;min-width:44px;height:44px}.room-studio-header{left:12px;right:12px}.room-screen .room-studio .room-quick-actions{bottom:99px;gap:4px;flex-wrap:wrap;justify-content:center}.room-context-name{width:100%;max-width:none}.room-studio .room-quick-button{min-width:65px;font-size:10px;padding:7px}.room-games-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.room-game-card{min-height:123px}.room-more-games,.room-settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.room-studio .room-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}.room-screen .room-studio .dollhouse-panel{padding:18px;width:calc(100% - 24px)}.room-panel-heading h2{font-size:22px}.room-studio .room-frame-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.room-studio .room-edit-banner{top:70px;white-space:nowrap;width:calc(100% - 30px);justify-content:space-between}.room-studio .room-edit-banner>span{font-size:10px;white-space:normal;max-width:150px}}
 @media(prefers-reduced-motion:reduce){.room-menu-card,.room-game-card{transition:none}}
 @media(orientation:landscape) and (max-height:600px){.room-studio-header{align-items:flex-start}.room-top-actions{flex-direction:column;gap:6px}.room-tool{width:44px}.room-menu-art .menu-portrait,.room-menu-art .menu-dog{height:34px}.room-menu-art .menu-portrait>svg{width:70px;height:185px;top:-26px;left:-7px}.room-menu-art .menu-dog>svg{width:54px;height:54px;top:-2px;left:0}}
+
+/* A compact game HUD belongs outside the miniature room. */
+.room-screen .room-studio{--room-ink:#34534f;--room-accent:#557f74}
+.room-wordmark{color:#294f43;text-shadow:0 1px #ffffff80}
+.room-ribbon{background:linear-gradient(#f4efdfed,#e9dfc9);border-top:2px solid #fff7df}
+.room-menu-card{border-radius:15px;box-shadow:0 3px 0 #7f746138;color:#405b53}
+.room-menu-card[aria-pressed=true]{border-color:#4e806e;box-shadow:0 0 0 3px #fff8}
+.room-top-actions .room-tool{color:#49665a;border-radius:14px;background:#faf3e4ed}
+.room-edit-done{background:#598778}.room-screen .room-studio .room-quick-actions{border-radius:18px}
+
+.room-studio .room-view-controls{position:absolute;z-index:5;left:max(16px,env(safe-area-inset-left));bottom:116px;display:flex;gap:4px;padding:5px;border:1px solid #fff8;border-radius:16px;background:#f8f1dfdc}
+.room-view-controls button{width:44px;height:44px;border-radius:11px;color:#3a6151;font-size:25px;background:#ffffff70}
+.room-view-controls button:active{background:#d3e2cc}
+@media(orientation:landscape) and (max-height:600px){.room-studio .room-view-controls{bottom:90px;left:12px}}
+@media(orientation:portrait){.room-studio .room-view-controls{bottom:100px}}
