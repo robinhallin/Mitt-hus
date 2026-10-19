@@ -1,3 +1,4 @@
+import {freshDollhouse,normalizeDollhouse} from './dollhouse.js';
 import {freshColoring,normalizeColoring} from './coloring.js';
 import {ACCESSORY_SLOTS} from './accessories.js';
 import {freshDay,normalizeDay} from './playday.js';
@@ -36,7 +37,7 @@ export function freshState() {
     makeup: { lips: null, cheeks: null, eyes: null },
     room: { wall: 0, stickers: [], furniture: defaultFurniture(), drawing: [] },
     dog: { brushed: 0, clean: [false, false, false, false, false], fed: false, collar: '#68a99d',accessory:'none',affection:0,played:0 },
-    tidy: [], teeth: Array(8).fill(false), done: [], looks:[], nextLookId:1, adventures: freshAdventures(), touch: freshTouch(),day:freshDay(),coloring:freshColoring(),
+    tidy: [], teeth: Array(8).fill(false), done: [], looks:[], nextLookId:1, adventures: freshAdventures(), touch: freshTouch(),day:freshDay(),coloring:freshColoring(),dollhouse:freshDollhouse(),
   };
 }
 const index = (value, max, fallback = 0) => Number.isInteger(value) && value >= 0 && value < max ? value : fallback;
@@ -82,6 +83,7 @@ export function normalizeState(raw) {
   s.nextLookId=Math.max(Number.isInteger(raw.nextLookId)&&raw.nextLookId>0&&raw.nextLookId<1000000000?raw.nextLookId:1,...s.looks.map(v=>Number(v.id.slice(5))+1));
   s.day=normalizeDay(raw.day,p=>{const n=normalizeState({version:1,lea:p?.lea,makeup:p?.makeup,touch:{paint:p?.touch?.paint},room:p?.room,dog:p?.dog});return {lea:n.lea,makeup:n.makeup,touch:{paint:n.touch.paint},room:n.room,dog:n.dog};});
   s.coloring=normalizeColoring(raw.coloring);
+  s.dollhouse=normalizeDollhouse(raw.dollhouse);
   return s;
 }
 export function load(storage) {

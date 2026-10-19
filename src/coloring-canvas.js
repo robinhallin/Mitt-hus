@@ -33,3 +33,6 @@ export function createColoringPainter({getState,doc=globalThis.document,onError=
  detach(){generation++;if(scheduled!==null&&globalThis.cancelAnimationFrame)cancelAnimationFrame(scheduled);scheduled=null;latest=null;board=atlas=backup=layer=null;page=null;}
  };
 }
+
+// Use the same saved operations for real framed canvases in the 3D room.
+export async function renderColoringTexture(id,actions,doc=globalThis.document){const atlas=await loadAtlas(id,doc),paint=makeCanvas(doc);replayColorPage(paint,actions,atlas,doc);const out=makeCanvas(doc),ctx=out.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,out.width,out.height);ctx.drawImage(paint,0,0);const url=pageAsset(id);if(url){const img=new Image();img.src=url;await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;if(img.complete&&img.naturalWidth)resolve();});ctx.globalCompositeOperation='multiply';ctx.drawImage(img,0,0,out.width,out.height);ctx.globalCompositeOperation='source-over';}return out;}

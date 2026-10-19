@@ -1,6 +1,6 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.7 innehåller ett eget rum, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.8 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
 
 Den nya [picknickdagen](docs/picknickdagen.md) binder ihop valfri packning, fingerlekar med Sigge, lera och bad, fika och ett eget foto. Fantasiparad, tebjudning och små upptäckter ger skapandet en fortsättning.
 
@@ -8,7 +8,7 @@ Den nya [picknickdagen](docs/picknickdagen.md) binder ihop valfri packning, fing
 
 ## Det går att leka med
 
-- **Mitt rum:** ett illustrerat rum med Lea, Sigge och genvägar till leken.
+- **Mitt rum:** ett riktigt 3D-dockhus med Lea och Sigge i 3D, flyttbara möbler och leksaker, öppningsbar garderob och låda, gardiner, dag/natt och lampa. Bygg koja av kuddar och filt, bjud in Sigge, vattna blomman och häng rithörnans målningar i tre ramar. Se [dockhuset](docs/dockhuset.md).
 - **Inred:** lägg till åtta möbeltyper, flytta genom drag, tryck eller pilar, byt färg, vänd och ta bort. Upp till tolv möbler och ångra för de senaste tjugo ändringarna. Möbleringen syns direkt i rummet. Kategorierna Möbler, Flytta & färga och Idéer samt tre rumidéer ger enkla ingångar; idéerna kan ångras.
 - **Kläder:** kombinera kjol, byxor, klänning, hängselbyxor och pyjamas med sex färger, fem mönster, solhatt eller krona, tre frisyrer, rosett och skor. Bildkategorier delar upp kläder, hår, accessoarer och sparade stilar. Sexton illustrerade accessoarer används för huvudbonader, hårspännen, glasögon, halsband, väskor och Sigges detaljer. Sex egna favoritstilar kan sparas och återställas med målningen. Klänningens färg väljs gemensamt för hela plagget.
 - **Smink:** välj färg och måla egna streck med fingret på kinder, läppar och ögon. Hela huvudet och axlarna ryms i spegeln. Tre penselstorlekar, glitter, målade hjärtan och blommor, lokalt sudd, ångra och tvätta bort finns. En förhandsvisning visar hela stilen. Glasögonen tas tillfälligt av under målningen och syns i förhandsvisningen. Markeringarna sparas och syns på Lea i andra vyer. Ett stillastående tryck målar inte.
@@ -64,7 +64,7 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 
 ## Verifiering och nästa nivå
 
-Version 0.7 passerar 79 automatiska tester av fingerinteraktioner, lokala kroppsdelar, tvål/skölj/tork, målning/sudd, flerfingerhändelser, fångad pekare, avbrott, koordinater efter storleksändring, alla tre äventyr, gamla och nya sparningar samt app- och offlinepaket. Karaktärsgrafik, nya accessoarer, huvudbonader och kombinationer samt Sigges halsbandsfärger och skötseleffekter är separat renderade och visuellt granskade. 360 kombinationer inklusive hårfärg kontrolleras för kompletta bildkällor och konsekventa porträtt. Full webbläsarlayout och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
+Version 0.8 passerar 126 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
 
 ## Spela från iPads hemskärm
 
