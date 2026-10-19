@@ -28,11 +28,11 @@ export const ADVENTURES=[
  {id:'picnic',title:'Picknick med Sigge',emoji:'🧺',intro:'Solen skiner! Ska vi packa en liten picknick?',ending:'Ni hittar en skön plats i gräset. Sigge rullar på filten och ni delar en mysig stund.',steps:[
  {event:'outfit',scene:'dress',title:'Välj picknickkläder',hint:'Välj det du gillar och tryck på klar.'},
  {event:'garden',scene:'garden',title:'Hitta picknicksakerna',hint:'Kan du hitta äpplet, bollen och blomman i trädgården?'},
- {event:'feed',scene:'dog',title:'Något gott till Sigge',hint:'Välj Mums och tryck på Sigge.'},
+ {event:'feed',scene:'dog',title:'Något gott till Sigge',hint:'Välj Mums och för fingret med benet till Sigges mun.'},
  {event:'finale',scene:'adventures',title:'Dags för picknick!',hint:'Rulla ut filten och njut tillsammans.'}]},
  {id:'party',title:'Sigges lilla kalas',emoji:'🎈',intro:'Sigge vill ha ett kalas med sin allra bästa vän!',ending:'Musiken spelar och Sigges svans går som en propeller. Vilket härligt kalas ni ordnade!',steps:[
  {event:'craft',scene:'craft',title:'Pynta till kalaset',hint:'Sätt ett klistermärke på väggen.'},
- {event:'brush',scene:'dog',title:'En fluffig festkompis',hint:'Borsta Sigges päls mjuk och skön.'},
+ {event:'brush',scene:'dog',title:'En fluffig festkompis',hint:'Borsta med fingret över huvudet, kroppen, tassarna och svansen.'},
  {event:'outfit',scene:'dress',title:'Dina egna kalaskläder',hint:'Välj en festlig stil som känns kul.'},
  {event:'finale',scene:'adventures',title:'Nu börjar kalaset!',hint:'Fira med Sigge och alla gosedjuren.'}]},
  {id:'evening',title:'En mysig kväll',emoji:'🌙',intro:'Det börjar bli kväll. Gör plats för en skön stund tillsammans.',ending:'Lea och Sigge kryper ner i ett mysigt rum. En lugn stund och en riktigt god natt.',steps:[
@@ -46,6 +46,6 @@ export function freshAdventures(){return{active:null,progress:Object.fromEntries
 export function normalizeAdventures(raw){const s=freshAdventures();if(!raw||typeof raw!=='object')return s;if(ADVENTURES.some(a=>a.id===raw.active))s.active=raw.active;for(const a of ADVENTURES){const r=raw.progress?.[a.id];if(!r)continue;s.progress[a.id]={step:Number.isInteger(r.step)?Math.max(0,Math.min(a.steps.length,r.step)):0,prepared:r.prepared===true,found:GARDEN_FINDS.filter(f=>Array.isArray(r.found)&&r.found.includes(f.id)).map(f=>f.id)};}s.completed=ADVENTURES.filter(a=>Array.isArray(raw.completed)&&raw.completed.includes(a.id)).map(a=>a.id);return s;}
 export function activeAdventure(s){const story=ADVENTURES.find(a=>a.id===s.adventures.active);if(!story)return null;const progress=s.adventures.progress[story.id];return{story,progress,step:story.steps[progress.step],finished:progress.step===story.steps.length};}
 export function chooseAdventure(s,id,replay=false){if(!ADVENTURES.some(a=>a.id===id))return false;s.adventures.active=id;if(replay)s.adventures.progress[id]={step:0,prepared:false,found:[]};return true;}
-export function prepareAdventureStep(s){const a=activeAdventure(s);if(!a?.step||a.progress.prepared)return false;switch(a.step.event){case 'tidy':s.tidy=[];break;case 'teeth':s.teeth=Array(8).fill(false);break;case 'brush':s.dog.brushed=0;break;case 'feed':s.dog.fed=false;break;}a.progress.prepared=true;return true;}
+export function prepareAdventureStep(s){const a=activeAdventure(s);if(!a?.step||a.progress.prepared)return false;switch(a.step.event){case 'tidy':s.tidy=[];break;case 'teeth':s.teeth=Array(8).fill(false);if(s.touch)s.touch.teeth=Array(8).fill(0);break;case 'brush':s.dog.brushed=0;if(s.touch)s.touch.brush=Array(5).fill(0);break;case 'feed':s.dog.fed=false;break;}a.progress.prepared=true;return true;}
 export function advanceAdventure(s,event){const a=activeAdventure(s);if(!a?.step||a.step.event!==event)return null;a.progress.step++;a.progress.prepared=false;if(a.progress.step===a.story.steps.length&&!s.adventures.completed.includes(a.story.id))s.adventures.completed.push(a.story.id);return{title:a.story.title,finished:a.progress.step===a.story.steps.length,next:a.story.steps[a.progress.step]};}
 export function findGardenItem(s,id){const a=activeAdventure(s);if(!a||a.step?.event!=='garden'||!GARDEN_FINDS.some(f=>f.id===id)||a.progress.found.includes(id))return false;a.progress.found.push(id);return true;}

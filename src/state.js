@@ -1,3 +1,4 @@
+import { freshTouch, normalizeTouch, normalizeDrawing } from './touch.js';
 import { defaultFurniture, normalizeFurniture, freshAdventures, normalizeAdventures, OUTFITS, PATTERNS, HEADWEAR } from './world.js';
 export const SAVE_KEY = 'lea-sigge-world-v1';
 export const PALETTES = {
@@ -28,11 +29,11 @@ export const STICKERS = ['flower', 'star', 'heart', 'paw', 'moon', 'rainbow'];
 export function freshState() {
   return {
     version: 1, entered: false, sound: true,
-    lea: { top: 0, outfit: 'skirt', shoes: 0, hair: 3, hairstyle: 'loose', bow: false, bottom: 0, pattern: 'plain', headwear: 'none' },
+    lea: { top: 0, outfit: 'skirt', shoes: 0, hair: 3, hairstyle: 'loose', bow: false, bottom: 1, pattern: 'plain', headwear: 'none' },
     makeup: { lips: null, cheeks: null, eyes: null },
-    room: { wall: 0, stickers: [], furniture: defaultFurniture() },
+    room: { wall: 0, stickers: [], furniture: defaultFurniture(), drawing: [] },
     dog: { brushed: 0, clean: [false, false, false, false, false], fed: false, collar: '#68a99d' },
-    tidy: [], teeth: Array(8).fill(false), done: [], adventures: freshAdventures(),
+    tidy: [], teeth: Array(8).fill(false), done: [], adventures: freshAdventures(), touch: freshTouch(),
   };
 }
 const index = (value, max, fallback = 0) => Number.isInteger(value) && value >= 0 && value < max ? value : fallback;
@@ -47,10 +48,11 @@ export function normalizeState(raw) {
   s.lea.outfit = OUTFITS.includes(raw.lea?.outfit) ? raw.lea.outfit : 'skirt';
   s.lea.hairstyle = ['loose', 'ponytail', 'pigtails'].includes(raw.lea?.hairstyle) ? raw.lea.hairstyle : 'loose';
   s.lea.bow = raw.lea?.bow === true;
-  s.lea.bottom = index(raw.lea?.bottom, 6);
+  s.lea.bottom = index(raw.lea?.bottom, 6, s.lea.bottom);
   s.lea.pattern = PATTERNS.includes(raw.lea?.pattern) ? raw.lea.pattern : 'plain';
   s.lea.headwear = HEADWEAR.includes(raw.lea?.headwear) ? raw.lea.headwear : 'none';
   s.room.furniture = normalizeFurniture(raw.room?.furniture);
+  s.room.drawing = normalizeDrawing(raw.room?.drawing);
   s.adventures = normalizeAdventures(raw.adventures);
   for (const k of ['lips', 'cheeks', 'eyes']) {
     const v = raw.makeup?.[k];
@@ -67,6 +69,7 @@ export function normalizeState(raw) {
   s.tidy = TOYS.filter(t => Array.isArray(raw.tidy) && raw.tidy.includes(t.id)).map(t => t.id);
   s.teeth = s.teeth.map((_, i) => raw.teeth?.[i] === true);
   s.done = TASKS.filter(t => Array.isArray(raw.done) && raw.done.includes(t.id)).map(t => t.id);
+  s.touch = normalizeTouch(raw.touch, s.dog, s.teeth);
   return s;
 }
 export function load(storage) {

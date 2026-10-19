@@ -19,3 +19,11 @@ Rummet har nu flyttbara möbler i åtta typer med färg, vändning, borttagning 
 Tre frivilliga berättelser knyter ihop aktiviteterna: picknick med en leta-lek i trädgården, Sigges kalas och en mysig kväll. Varje berättelse sparar sitt eget steg. Att byta berättelse raderar inte den förra. När en aktivitetsdel förbereds för omspel återställs bara den aktuella aktiviteten; intjänade minnen finns kvar.
 
 Versionen är verifierad med 41 automatiska tester och XML-validering av 36 grafiska varianter. Visuell webbläsargranskning och fysisk iPad återstår.
+
+## Version 0.3 – fingerlek på surfplatta
+
+Hunden borstas lokalt genom rörelse över fem kroppsdelar. Tvål, sköljning och torkning är tre olika steg per del. Smink och fri ritning lagrar faktiska penseldrag med sudd och ångra. Tandborstning kräver rörelse över varje tand. Verktygen följer fingret och scenerna byggs inte om mitt i ett svep. Fångad pekare, sammanslagna pekhändelser och avbrott hanteras gemensamt.
+
+Leas ansikte hämtas direkt från välkomstbilden. Matchande kroppar med flera plagg ger enhetlig karaktärsgrafik; klädfärger maskas så att hud och ansikte bevaras. De tre berättelserna fortsätter använda samma aktiviteter och sparningar.
+
+Appmanifest, PNG-ikoner, säkra skärmkanter och layout i båda riktningar är uppdaterade. Den privata versionen kan läggas på hemskärmen som webbapp. 62 automatiska tester passerar; full browserlayout och fysisk iPad återstår att prova.
