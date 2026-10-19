@@ -1,8 +1,10 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.6 innehåller ett eget rum, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.7 innehåller ett eget rum, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
 
 Den nya [picknickdagen](docs/picknickdagen.md) binder ihop valfri packning, fingerlekar med Sigge, lera och bad, fika och ett eget foto. Fantasiparad, tebjudning och små upptäckter ger skapandet en fortsättning.
+
+[Leas rithörna](docs/rithornan.md) har sex personliga målarbilder och ett tomt papper, 18 färger, tre penselstorlekar, hjälp med kanter, färghink, sudd, ångra/gör om och egna albumbilder. Varje motiv sparas separat.
 
 ## Det går att leka med
 
@@ -62,7 +64,7 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 
 ## Verifiering och nästa nivå
 
-Version 0.6 passerar 79 automatiska tester av fingerinteraktioner, lokala kroppsdelar, tvål/skölj/tork, målning/sudd, flerfingerhändelser, fångad pekare, avbrott, koordinater efter storleksändring, alla tre äventyr, gamla och nya sparningar samt app- och offlinepaket. Karaktärsgrafik, nya accessoarer, huvudbonader och kombinationer samt Sigges halsbandsfärger och skötseleffekter är separat renderade och visuellt granskade. 360 kombinationer inklusive hårfärg kontrolleras för kompletta bildkällor och konsekventa porträtt. Full webbläsarlayout och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
+Version 0.7 passerar 79 automatiska tester av fingerinteraktioner, lokala kroppsdelar, tvål/skölj/tork, målning/sudd, flerfingerhändelser, fångad pekare, avbrott, koordinater efter storleksändring, alla tre äventyr, gamla och nya sparningar samt app- och offlinepaket. Karaktärsgrafik, nya accessoarer, huvudbonader och kombinationer samt Sigges halsbandsfärger och skötseleffekter är separat renderade och visuellt granskade. 360 kombinationer inklusive hårfärg kontrolleras för kompletta bildkällor och konsekventa porträtt. Full webbläsarlayout och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
 
 ## Spela från iPads hemskärm
 
