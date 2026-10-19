@@ -91,3 +91,14 @@ test('stickers move with grab offset, undo and safely cancel on the tablet',()=>
 });
 
 test('room ideas are reversible and furnishing categories retain editing controls',()=>{click('go','furnish');const before=saved().room.furniture;click('furnish-tab','ideas');click('room-idea','reading');assert.notDeepEqual(saved().room.furniture,before);click('undo-furniture');assert.deepEqual(saved().room.furniture,before);click('furnish-tab','things');click('add-furniture','chair');click('furnish-tab','move');assert.match(app.innerHTML,/furniture-nudge/);});
+
+test('picknick packing, pause, return and new scenes are connected through real app actions',()=>{
+ click('go','home');assert.match(app.innerHTML,/room-play-links/);click('resume-day');assert.match(app.innerHTML,/packing-surface/);click('pack','ball');click('pack','water');click('pack','blanket');click('pack','bear');assert.deepEqual(saved().day.packed,['ball','water','blanket']);click('start-day');assert.match(app.innerHTML,/meadow-surface/);assert.equal(saved().day.phase,'garden');assert.doesNotMatch(app.innerHTML,/data-action="play-mode" data-value="bubbles"/);click('go','home');click('resume-day');assert.match(app.innerHTML,/meadow-surface/);click('picnic-time');assert.equal(saved().day.phase,'picnic');click('finish-day');assert.equal(saved().day.phase,'picnic');click('new-day');assert.equal(saved().day.phase,'packing');
+ for(const name of ['tea','parade','album']){click('go',name);assert.doesNotMatch(app.innerHTML,/NaN|undefined/);}click('go','home');
+});
+test('parade and tea photos preserve settings, appear in album and can be replaced',()=>{
+ click('go','parade');click('parade-background','stars');click('parade-pose','bow');click('take-photo','parade');const id=saved().day.photos.at(-1).id;click('parade-background','flowers');assert.equal(saved().day.photos.at(-1).settings.background,'stars');click('go','tea');click('tea-guest','bunny');click('take-photo','tea');click('go','album');assert.match(app.innerHTML,/photo-card/);assert.match(app.innerHTML,/Min fantasiparad/);assert.match(app.innerHTML,/Min tebjudning/);click('delete-photo',id);assert.ok(!saved().day.photos.some(p=>p.id===id));click('go','home');
+});
+test('discovery props expose actual found objects and existing appearance flows lead to play',()=>{
+ click('go','home');click('discover','drawer');assert.ok(saved().day.discoveries.includes('drawer'));assert.match(app.innerHTML,/prop-drawer opened/);for(const [area,target] of [['dress','parade'],['makeup','parade'],['furnish','tea'],['dog','meadow']]){click('go',area);assert.match(app.innerHTML,new RegExp(`data-value="${target}"`));}click('go','home');
+});

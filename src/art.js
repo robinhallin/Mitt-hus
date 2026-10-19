@@ -8,13 +8,13 @@ export const icons = {
 };
 export const icon = name => `<span class="emoji" aria-hidden="true">${icons[name] || '✨'}</span>`;
 export function lea(s, face = false) { return face ? paintFace(s) : identityAvatar(s); }
-export function dog(s) {
+export function dog(s,prefix='sigge') {
  const rgb=s.dog.collar.slice(1).match(/../g).map(v=>parseInt(v,16)/255/.5);
  return `<svg class="dog-art identity-dog" viewBox="0 0 ${DOG_VIEW.w} ${DOG_VIEW.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sigge, samma golden retriever som på välkomstbilden"><defs>
  <filter id="collar-pixels" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -6 6 0 0 0"/></filter>
  <mask id="sigge-collar" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">${dogImage('filter="url(#collar-pixels)"')}</mask>
  <filter id="collar-tint" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${rgb.map(k=>`${.2126*k} ${.7152*k} ${.0722*k} 0 0`).join(' ')} 0 0 0 1 0"/></filter></defs>
- ${dogImage()}${s.dog.collar!=='#68a99d'?`<g mask="url(#sigge-collar)">${dogImage('filter="url(#collar-tint)"')}</g>`:''}${dogAccessories(s.dog)}</svg>`;
+ ${dogImage()}${s.dog.collar!=='#68a99d'?`<g mask="url(#sigge-collar)">${dogImage('filter="url(#collar-tint)"')}</g>`:''}${dogAccessories(s.dog)}</svg>`.replaceAll('collar-pixels',`${prefix}-pixels`).replaceAll('sigge-collar',`${prefix}-collar`).replaceAll('collar-tint',`${prefix}-tint`);
 }
 export function roomArt(s) {
  return `<svg class="room-background" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
