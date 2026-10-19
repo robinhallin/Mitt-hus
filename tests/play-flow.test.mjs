@@ -27,3 +27,25 @@ test('all dog activities and collars update through the UI',()=>{click('go','dog
 test('teeth complete and replay preserves the earned memory',()=>{click('go','teeth');for(let i=0;i<8;i++)click('tooth',String(i));assert.ok(saved().teeth.every(Boolean));assert.ok(saved().done.includes('teeth'));click('reset','teeth');assert.ok(saved().teeth.every(v=>!v));assert.ok(saved().done.includes('teeth'));});
 test('room decorations are placed, bounded, saved and removable',()=>{click('go','craft');click('wall','3');click('sticker','rainbow');click('place-sticker');assert.equal(saved().room.wall,3);assert.deepEqual(saved().room.stickers,[{icon:'rainbow',x:40,y:40}]);assert.ok(saved().done.includes('craft'));click('go','home');assert.match(app.innerHTML,/wall-sticker/);click('go','craft');click('remove-sticker','0');assert.deepEqual(saved().room.stickers,[]);});
 test('sound and help controls are usable without speech services',()=>{click('sound');assert.equal(saved().sound,false);click('help');click('sound');assert.equal(saved().sound,true);});
+test('pointer dragging sorts an object and a cancelled drag leaves it in play',()=>{
+ click('go','tidy');click('reset','tidy');
+ const drop={dataset:{drop:'toys'},classList:{add(){},remove(){}}};
+ document.elementFromPoint=()=>({closest:s=>s==='[data-drop]'?drop:null});
+ const target={closest:s=>s==='[data-draggable]'?{dataset:{draggable:'bear'}}:null};
+ handlers.pointerdown({target,clientX:10,clientY:10});
+ handlers.pointermove({target,clientX:80,clientY:120,preventDefault(){}});
+ const pending=[],timer=globalThis.setTimeout;globalThis.setTimeout=f=>{pending.push(f);return 0;};
+ try{windowHandlers.pointerup({clientX:80,clientY:120});}finally{globalThis.setTimeout=timer;}
+ pending.forEach(fn=>fn());assert.deepEqual(saved().tidy,['bear']);
+ handlers.pointerdown({target:{closest:s=>s==='[data-draggable]'?{dataset:{draggable:'ball'}}:null},clientX:10,clientY:10});
+ handlers.pointercancel?.({});windowHandlers.pointercancel();assert.deepEqual(saved().tidy,['bear']);
+ document.elementFromPoint=()=>null;
+});
+test('scrubbing resolves the tooth under a captured touch pointer',()=>{
+ click('go','teeth');click('reset','teeth');
+ let hitIndex=1;const stage={dataset:{scrub:'teeth'}};
+ document.elementFromPoint=()=>({closest:s=>s==='[data-scrub]'?stage:s==='[data-action="tooth"]'?{dataset:{value:String(hitIndex)}}:null});
+ const staleTarget={closest:()=>null},now=Date.now;let tick=10000;Date.now=()=>tick+=150;
+ try{handlers.pointermove({target:staleTarget,buttons:1,clientX:100,clientY:150});hitIndex=2;handlers.pointermove({target:staleTarget,buttons:1,clientX:130,clientY:150});}finally{Date.now=now;document.elementFromPoint=()=>null;}
+ assert.equal(saved().teeth[1],true);assert.equal(saved().teeth[2],true);assert.equal(saved().teeth[0],false);
+});
