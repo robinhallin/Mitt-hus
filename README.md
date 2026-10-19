@@ -1,12 +1,12 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.3 innehåller ett eget rum, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.4 innehåller ett eget rum, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
 
 ## Det går att leka med
 
 - **Mitt rum:** ett illustrerat rum med Lea, Sigge och genvägar till leken.
 - **Inred:** lägg till åtta möbeltyper, flytta genom drag, tryck eller pilar, byt färg, vänd och ta bort. Upp till tolv möbler och ångra för de senaste tjugo ändringarna. Möbleringen syns direkt i rummet.
-- **Kläder:** kombinera kjol, byxor, klänning, hängselbyxor och pyjamas med sex färger, fem mönster, solhatt eller krona, tre frisyrer, rosett och skor. Den valda stilen visas på Lea och följer med tillbaka till rummet.
+- **Kläder:** kombinera kjol, byxor, klänning, hängselbyxor och pyjamas med sex färger, fem mönster, solhatt eller krona, tre frisyrer, rosett och skor. Kompletta illustrerade frisyrer följer med till rummet och sminkspegeln. Klänningens färg väljs gemensamt för hela plagget.
 - **Smink:** välj färg och måla egna streck med fingret på kinder, läppar och ögon. Glitter, lokalt sudd, ångra och tvätta bort finns. Markeringarna sparas och syns på Lea i andra vyer. Ett stillastående tryck målar inte.
 - **Pyssel:** måla väggen, rita fritt med fingret i sex färger och placera upp till 24 klistermärken där du vill. Ritningen kan suddas och ångras. Dekorationerna syns också i rummet.
 - **Plocka:** sortera sex saker i tre lådor genom att trycka på saken och lådan, eller genom att dra.
@@ -43,6 +43,8 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 - `src/world.js` – möbelkatalog, begränsningar, äventyr och bakåtkompatibel sparvalidering.
 - `src/play-views.js` – möblering, äventyrsvyer och trädgårdslek.
 - `src/play-art.js` – redigerbar möbel- och trädgårdsgrafik.
+- `src/character-layout.js` – gemensam geometri för Sigges bild, skötsel och matning.
+- `src/lea-appearance.js` – kompletta frisyr- och klädbilder, identitet, hårfärg och accessoarer.
 - `src/avatar.js` – välkomstbildens faktiska ansikte kombinerat med matchande klädsprites; se `docs/avatar.md`.
 - `src/touch.js` – lokal sveplängd, kroppsdelar, penseldata och validering.
 - `src/touch-controller.js` – fångad pekare, sammanslagna händelser, koordinater och avbrott.
@@ -55,7 +57,7 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 
 ## Verifiering och nästa nivå
 
-Version 0.3 passerar 62 automatiska tester av fingerinteraktioner, lokala kroppsdelar, tvål/skölj/tork, målning/sudd, flerfingerhändelser, fångad pekare, avbrott, koordinater efter storleksändring, alla tre äventyr, gamla och nya sparningar samt app- och offlinepaket. Komponerad avatar- och ansiktsgrafik är separat renderad och visuellt granskad. Full webbläsarlayout och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
+Version 0.4 passerar 65 automatiska tester av fingerinteraktioner, lokala kroppsdelar, tvål/skölj/tork, målning/sudd, flerfingerhändelser, fångad pekare, avbrott, koordinater efter storleksändring, alla tre äventyr, gamla och nya sparningar samt app- och offlinepaket. 45 kombinationer av kläder, frisyr och huvudbonad samt Sigges halsbandsfärger och skötseleffekter är separat renderade och visuellt granskade. 180 kombinationer inklusive hårfärg kontrolleras för kompletta bildkällor och konsekventa porträtt. Full webbläsarlayout och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
 
 ## Spela från iPads hemskärm
 

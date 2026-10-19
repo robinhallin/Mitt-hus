@@ -1,3 +1,4 @@
+import {DOG_MOUTH} from './character-layout.js';
 import {surfacePoint,dogCare,brushTeeth,commitPaint,paintTravel,strokeSamples,inside} from './touch.js';
 export function createTouchController({getState,getTool,onProgress,onEnd,onBlocked}){
  let active=null;
@@ -13,7 +14,7 @@ export function createTouchController({getState,getTool,onProgress,onEnd,onBlock
  move(e){if(!active)return false;if((e.pointerId??1)!==active.id)return true;e.preventDefault?.();const events=e.getCoalescedEvents?.()||[e];let lastPoint=null,lastEvent=e;
  for(const sample of events.length?events:[e]){const p=point(active.el,sample);if(!p){active.last=null;continue;}if(!active.last){active.last=p;continue;}const a=active.last;active.last=p;lastPoint=p;lastEvent=sample;const s=getState();
  if(active.kind==='dog'){
- if(active.tool==='food'){const samples=strokeSamples(a,p);active.travel+=samples.reduce((n,v)=>n+v.travel,0);if(active.travel>.03&&samples.some(v=>inside(v,{x:.445,y:.535,rx:.1,ry:.09}))&&!s.dog.fed){s.dog.fed=true;active.changed=true;}}
+ if(active.tool==='food'){const samples=strokeSamples(a,p);active.travel+=samples.reduce((n,v)=>n+v.travel,0);if(active.travel>.03&&samples.some(v=>inside(v,DOG_MOUTH))&&!s.dog.fed){s.dog.fed=true;active.changed=true;}}
  else{const result=dogCare(s,active.tool,a,p);active.changed||=result.changed;if(result.blocked&&!active.warned){active.warned=true;onBlocked?.(active.tool);}}}
  else if(active.kind==='teeth')active.changed=brushTeeth(s,a,p)||active.changed;
  else if(active.kind==='makeup'){const length=paintTravel(active.tool,a,p);active.travel+=length;if(strokeSamples(a,p).length){active.stroke.points.push(p);if(active.stroke.points.length>=96){active.changed=commitPaint(s,active.stroke)||active.changed;active.stroke={tool:active.tool,color:active.color,points:[p]};}}}

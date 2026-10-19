@@ -1,3 +1,4 @@
+import {DOG_VIEW,dogImage} from './character-layout.js';
 import {identityAvatar} from './avatar.js';
 import {paintFace} from './paint-art.js';
 import { PALETTES } from './state.js';
@@ -7,20 +8,12 @@ export const icons = {
 export const icon = name => `<span class="emoji" aria-hidden="true">${icons[name] || '✨'}</span>`;
 export function lea(s, face = false) { return face ? paintFace(s) : identityAvatar(s); }
 export function dog(s) {
- return `<svg class="dog-art" viewBox="0 0 480 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sigge, en glad golden retriever">
- <defs><linearGradient id="fur" x2=".8" y2="1"><stop stop-color="#f9dba1"/><stop offset="1" stop-color="#d49b4e"/></linearGradient></defs>
- <ellipse cx="240" cy="399" rx="162" ry="21" fill="#937762" opacity=".15"/>
- <path class="wag" d="M336 331Q448 259 439 343Q438 403 336 381" fill="url(#fur)" stroke="#c58d46" stroke-width="4"/>
- <path d="M147 218Q105 286 112 380Q144 410 177 384L198 319L230 388Q274 415 306 387Q330 298 288 218Z" fill="url(#fur)" stroke="#c18c49" stroke-width="3"/>
- <path d="M165 262L157 382Q181 401 205 383L212 275M264 265L259 384Q285 403 306 382L293 257" fill="url(#fur)" stroke="#c18c49" stroke-width="3"/>
- <path d="M124 114Q73 71 61 150Q54 240 123 249L156 167M301 114Q353 72 368 153Q378 229 306 249L280 172" fill="#d6a057" stroke="#bc8440" stroke-width="3"/>
- <path d="M114 132Q110 55 212 50Q318 48 316 136L311 188Q286 259 213 264Q143 261 117 195Z" fill="url(#fur)" stroke="#c18c49" stroke-width="3"/>
- <path d="M142 118Q165 100 183 117M245 116Q270 99 291 116" stroke="#bc884b" stroke-width="5" stroke-linecap="round" fill="none"/>
- <g fill="#4c382d"><ellipse cx="163" cy="141" rx="14" ry="17"/><ellipse cx="270" cy="141" rx="14" ry="17"/></g><g fill="white"><circle cx="159" cy="136" r="5"/><circle cx="266" cy="136" r="5"/></g>
- <ellipse cx="213" cy="186" rx="57" ry="42" fill="#f8dfb2"/><path d="M190 174Q213 160 236 174Q238 199 213 201Q189 198 190 174" fill="#594137"/><ellipse cx="206" cy="176" rx="10" ry="4" fill="#9f8270"/>
- <path d="M180 209Q212 239 248 208Q244 265 213 271Q183 258 180 209" fill="#6b4639"/><path d="M198 234Q216 225 233 236Q233 269 215 274Q194 270 198 234" fill="#e59e9b"/><path d="M216 240v23" stroke="#c98080" stroke-width="3"/>
- <path d="M140 240Q214 284 290 240L285 266Q215 305 145 265Z" fill="${s.dog.collar}" stroke="#4a877d" stroke-width="2"/><circle cx="217" cy="287" r="17" fill="#eec768" stroke="#c99a3d" stroke-width="3"/><path d="M211 286l5 5 8-10" stroke="#a87e36" stroke-width="3" fill="none"/>
- </svg>`;
+ const rgb=s.dog.collar.slice(1).match(/../g).map(v=>parseInt(v,16)/255/.5);
+ return `<svg class="dog-art identity-dog" viewBox="0 0 ${DOG_VIEW.w} ${DOG_VIEW.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sigge, samma golden retriever som på välkomstbilden"><defs>
+ <filter id="collar-pixels" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -6 6 0 0 0"/></filter>
+ <mask id="sigge-collar" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">${dogImage('filter="url(#collar-pixels)"')}</mask>
+ <filter id="collar-tint" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${rgb.map(k=>`${.2126*k} ${.7152*k} ${.0722*k} 0 0`).join(' ')} 0 0 0 1 0"/></filter></defs>
+ ${dogImage()}${s.dog.collar!=='#68a99d'?`<g mask="url(#sigge-collar)">${dogImage('filter="url(#collar-tint)"')}</g>`:''}</svg>`;
 }
 export function roomArt(s) {
  return `<svg class="room-background" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

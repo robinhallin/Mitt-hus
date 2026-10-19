@@ -1,11 +1,6 @@
 // All care progress is earned by travel on the character, never by pointerdown/click.
-export const DOG_ZONES=[
- {id:'head',name:'Huvudet',x:.45,y:.29,rx:.22,ry:.21},
- {id:'chest',name:'Bröstet',x:.44,y:.64,rx:.18,ry:.22},
- {id:'left',name:'Vänster tass',x:.33,y:.87,rx:.11,ry:.12},
- {id:'right',name:'Höger tass',x:.61,y:.87,rx:.1,ry:.12},
- {id:'tail',name:'Svansen',x:.83,y:.79,rx:.13,ry:.16},
-];
+import {DOG_ZONES} from './character-layout.js';
+export {DOG_ZONES} from './character-layout.js';
 export const FACE_ZONES={
  cheeks:[{x:.28,y:.50,rx:.14,ry:.105},{x:.75,y:.56,rx:.135,ry:.105}],
  lips:[{x:.49,y:.615,rx:.125,ry:.055}],

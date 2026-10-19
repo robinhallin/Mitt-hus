@@ -1,22 +1,27 @@
-# Leas spelavatar
+# Lea och Sigges spelgrafik
 
-Välkomstbilden är `assets/lea-sigge.webp`. Ansiktet och håret i spelavataren återanvänder denna bild genom en SVG-klippning i `src/avatar.js`; ansiktet nygenereras inte vid klädbyte. Även sminkvyn visar samma källa. Defaultfärgen är blond och eventuell hårfärg maskas utanför det centrala ansiktet.
+Välkomstbilden är `assets/lea-sigge.webp`. Leas faktiska ansiktsdrag återanvänds med en klippning i `src/lea-appearance.js`. Klippningen stannar innanför ansiktet så att gammalt hår inte följer med över en ny frisyr. Samma bildval, hårfärg och accessoarer används i rum, garderob, berättelser och sminkspegel. Penseldragen använder samma ansiktskoordinater i alla vyer.
 
-Kropp och klädsprites skapades med det inbyggda bildverktyget från välkomstbilden. De finns i:
+## Kompletta frisyrer och kläder
 
-- `assets/characters/lea.webp`
-- `assets/characters/lea-trousers.webp`
-- `assets/characters/lea-overalls.webp`
-- `assets/characters/lea-pajamas.webp`
+`assets/characters/` innehåller tolv transparenta Lea-sprites: kjol, byxor, hängselbyxor och pyjamas, vardera med utsläppt hår, hästsvans eller två tofsar. Klänningen använder kjolens form med en gemensam färg och ett gemensamt mönster. Frisyrerna ersätter hela frisyren; inga extra platta hårformer läggs ovanpå det utsläppta håret.
 
-Bildverktygets PNG-filer har konverterats till WebP med bevarad transparens. Klädfärger och mönster ändras i SVG, med färgmasker för textilen. Ansiktsbilden ligger ovanpå och samma identitet följer med i rum, garderob och berättelser. Originalfotot på barnet finns inte i repot.
+Bildverktygets PNG-filer är konverterade till WebP med bevarad transparens. Textilmasker färgar kläder och bevarar textur, sömmar och hud. Hårfärgningen kombinerar en geometrisk mask med en färgmask som utesluter rosa/blå textil. Skorna färgas med en separat ljusnivå och mask för att bevara detaljer och undvika byxfållar. Rosetterna placeras vid den valda frisyrens fästen eller på solhatten. Krona och solhatt har gradienter och ytstruktur.
 
-## Använda bildprompter
+## Sigge
 
-Basbild: isolera Lea från den befintliga välkomstbilden, ta bort hunden och sänk hennes högra arm till sidan. Behåll ansikte, blå ögon, leende, huvudets lutning, blont hår, hudton, rosa T-shirt, lavendelfärgad kjol och vita skor. Behåll illustrerad detaljstil, hela kroppen synlig och transparent bakgrund, ingen text.
+`assets/characters/sigge.webp` är en isolerad, detaljerad Sigge från välkomstbilden, med rekonstruerad sida där Lea tidigare stod. Ansikte, päls, sittande pose, svans och halsband följer originalillustrationen. Halsbandets tyg färgas med en pixelmask; guldspänne och namnbricka behålls.
 
-Rensning: ta bort bakgrund, gloria och dis runt figuren, behåll figur, färger, ansikte, position och format oförändrade, verklig transparens utanför silhuetten.
+`src/character-layout.js` är gemensam källa för bildformat, fem kroppsdelar och mun. Bild, fingerkoordinater, matning och skötseleffekter använder samma geometri. Lera, lödder och vatten maskas till hundens silhuett. Huvudets effekt är mindre för att hålla lödder ovanför ögonen. Befintliga sparningar behåller fem regioners framsteg.
 
-Klädvarianter: ändra enbart plaggen till (1) blå raka jeans under samma rosa T-shirt, (2) blå jeanshängselbyxor ovanpå samma rosa T-shirt, (3) lavendelfärgad långärmad pyjamas med långbyxor och en liten ljusgul måne. Behåll person, pose, proportioner, position, 1024 × 1536-format, hår, ansikte, skor och renderingsstil oförändrade; transparent bakgrund utan rekvisita eller text.
+## Bildprompter
 
-De genererade ansiktena används inte som identitetskälla. Välkomstbildens ursprungliga ansikte läggs tillbaka i kod för att undvika drift mellan varianter.
+Bas: isolera Lea från välkomstbilden, ta bort hunden och sänk höger arm till sidan. Behåll identitet, ögon, leende, huvudlutning, kläder, skor, illustrerad detaljstil och transparent bakgrund.
+
+Kläder: ändra endast plaggen till blå jeans under rosa T-shirt, blå hängselbyxor över samma T-shirt eller lavendelfärgad långärmad pyjamas med gul måne. Behåll person, pose, proportioner, position och 1024 × 1536-format.
+
+Frisyrer: ändra endast håret till en naturligt uppsatt hög blond hästsvans eller två blonda tofsar med små rosa hårsnoddar. Ta bort allt gammalt utsläppt hår och visa hals och plagg där det tidigare låg. Bevara exakt ansikte, pose, kläder, bildformat och placering; varm detaljerad målad stil och verklig transparens.
+
+Sigge: isolera bara hunden från välkomstbilden, behåll samma individuella ansikte, uttryck, päls, turkosa halsband med guldspänne och rund bricka. Återskapa den skymda sidan, ta bort Lea och hennes hand, visa hela hunden med tassar och svans mot transparent bakgrund.
+
+Originalfotot på barnet ingår inte i repot.
