@@ -43,7 +43,7 @@ export function createPlayController({getState,getScene,getMode,getFree=()=>fals
     paint();return true;
   }
   function release(event,cancelled=false){if(!gesture||event.pointerId!==undefined&&event.pointerId!==gesture.id)return false;if(!cancelled&&Number.isFinite(event.clientX)&&Number.isFinite(event.clientY))move(event);const g=gesture;gesture=null;try{g.surface.releasePointerCapture?.(g.id);}catch{}
-    if(!cancelled&&g.travel>.04){const s=getState();if(g.drag==='pack'&&near(g.point,.73,.70,.22,.28)){g.changed=togglePack(s,g.pack)||g.changed;}if(g.drag==='discover'){g.changed=discover(s,g.discovery)||g.changed;}if(g.drag==='ball'){flight={target:{x:clamp(g.point.x,.35,.9),y:clamp(g.point.y,.4,.83)},elapsed:0,mud:false};last=null;queue();}
+    if(!cancelled&&g.travel>.04){const s=getState();if(g.drag==='pack'&&near(g.point,.73,.70,.22,.28)){g.changed=togglePack(s,g.pack)||g.changed;}if(g.drag==='discover'){g.changed=discover(s,g.discovery)||g.changed;}if(g.drag==='ball'){flight={target:{x:clamp(g.point.x,.35,.9),y:clamp(g.point.y,.64,.83)},elapsed:0,mud:false};last=null;queue();}
       if(g.drag==='snack'){const i=TEA_CUPS.findIndex(p=>near(g.point,p.x,p.y,.13,.17));if(i>=0){s.day.tea.snacks[i]=true;g.changed=true;onMessage('Varsågod! 🍓');}}
       if(g.drag==='fruit'){const i=PICNIC_PLATES.findIndex(p=>near(g.point,p.x,p.y,.16,.16));if(i>=0){s.day.picnic[i]=true;g.changed=true;onMessage(i?'Sigge fick ett hundkex! 🦴':'Lea fick ett äpple! 🍎');}}
     }
