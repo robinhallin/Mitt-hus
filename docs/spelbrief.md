@@ -1,26 +1,13 @@
-# Spelbrief
+# Spelbrief – Lea & Sigge
 
-## Bekräftat av beställaren
+Ett personligt lekspel för femåriga Lea på iPad/surfplatta. Lea gillar kläder, smink, pyssel, organisering och enkla omvårdnadslekar. Hennes följeslagare är golden retrievern Sigge. En delad bild används som inspiration för Lea; originalfotot ska inte ingå i det offentliga kodrepot.
 
-- Ett eget ordentligt spel från grunden för hans femåriga dotter.
-- Hon gillar att bygga, pyssla och inreda.
-- Hon ska spela på surfplatta/iPad.
-- Koden ska utvecklas i GitHub-repot `robinhallin/Mitt-hus`.
-- Det tidigare husprojektet får rensas från huvudgrenen.
+## Första spelbara versionen
 
-## Att precisera inför implementation
+Rummet är navet. Därifrån går spelaren till garderoben, spegeln, pysselväggen, sorteringsleken, Sigge och tandborstningen. Kläder, smink, väggfärg och klistermärken syns efter bytet. Framsteg sparas automatiskt på samma enhet. Minnen firar utforskande utan tidspress eller krav på prestation.
 
-- Vilken specifik spelidé eller vilket referensspel ska styra?
-- Vad ska barnet kunna göra i den första spelbara versionen?
-- Ska uttrycket vara 2D, ett dockhus med djup eller full 3D?
+Teknik: modulär JavaScript, CSS och redigerbar SVG utan externa körtidsberoenden. Samma kontroller stödjer klick och pekskärm; sortering har ett tryckalternativ till drag. Svenska hjälpröster använder enhetens tillgängliga röster.
 
-## Tidigare förslag, ännu inte fastställda krav
+## Fortsatt utveckling
 
-- Stora bildknappar och pekstyrning.
-- Svenska rösttips och möjlighet att spela utan att läsa.
-- Sparande på enheten.
-- Välja rum, färgsätta och möblera.
-
-## Arkiv
-
-Husprojektet är bevarat på grenen `archive/house-before-kids-game-2026-10-19`. Den nya utvecklingen utgår från huvudgrenen `main`.
+Nästa arbete bör utgå från hur Lea faktiskt spelar: justera symboler, storlek, tempo och hjälpröst, utveckla en mer konsekvent karaktärsgrafik och lägg därefter till fri möblering, fler pyssel och korta berättelser med Sigge. Den här versionen har inga köp, annonser eller nätbaserade spelardata.
