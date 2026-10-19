@@ -1,8 +1,8 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.9.1 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.10.0 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
 
-Kameran visar nu rummet inifrån i en nära spelvy. Väggar och golv täcker hela spelskärmen; inga yttre kanter eller tomma marginaler runt ett litet dockhus visas. Verktyg påverkar inte kamerans skala. Tryck på Lea, Sigge eller en möbel för små val direkt i rummet. Infällbara verktyg lämnar plats åt leken. Lea har mer detaljerade kläder, blinkningar och rörelser för att vinka, dansa och hoppa. Inne i rummet går det att kasta bollen till Sigge, hälla låtsaste genom att dra och hålla kannan, hitta gömda stjärnor, locka fram en fjäril och ta riktiga rumsfoton till albumet. Se [dockhuset](docs/dockhuset.md).
+Kameran visar nu rummet inifrån i en nära spelvy. Väggar och golv täcker hela spelskärmen; inga yttre kanter eller tomma marginaler runt ett litet dockhus visas. Verktyg påverkar inte kamerans skala. Sex stora bildval samlar kläder, smink, rithörna, Sigge, lek och inredning i en meny längst ner. Tryck på Lea, Sigge eller en möbel för små val direkt i rummet. Inredning har tydlig Klar-knapp och Ångra. Små koppar får förlåtande tryckytor och vardagsgester roterar inte kameran. Leas valda kläder, hår, accessoarer och ansiktsmålning följer med i samma figur som i de andra aktiviteterna. Figurerna rör sig i 3D-rummet och kan dansa och hoppa. Inne i rummet går det att kasta bollen till Sigge, hälla låtsaste genom att dra och hålla kannan, hitta gömda stjärnor, locka fram en fjäril och ta riktiga rumsfoton till albumet. Se [dockhuset](docs/dockhuset.md).
 
 Den nya [picknickdagen](docs/picknickdagen.md) binder ihop valfri packning, fingerlekar med Sigge, lera och bad, fika och ett eget foto. Fantasiparad, tebjudning och små upptäckter ger skapandet en fortsättning.
 
@@ -10,7 +10,7 @@ Den nya [picknickdagen](docs/picknickdagen.md) binder ihop valfri packning, fing
 
 ## Det går att leka med
 
-- **Mitt rum:** ett riktigt 3D-dockhus med Lea och Sigge i 3D, flyttbara möbler och leksaker, öppningsbar garderob och låda, gardiner, dag/natt och lampa. Bygg koja av kuddar och filt, bjud in Sigge, vattna blomman och häng rithörnans målningar i tre ramar. Se [dockhuset](docs/dockhuset.md).
+- **Mitt rum:** ett 3D-rum med Lea och Sigges etablerade illustrationer som animerade bildplan i scenen, flyttbara möbler och leksaker, öppningsbar garderob och låda, gardiner, dag/natt och lampa. Bygg koja av kuddar och filt, bjud in Sigge, vattna blomman och häng rithörnans målningar i tre ramar. Se [dockhuset](docs/dockhuset.md).
 - **Inred:** lägg till åtta möbeltyper, flytta genom drag, tryck eller pilar, byt färg, vänd och ta bort. Upp till tolv möbler och ångra för de senaste tjugo ändringarna. Möbleringen syns direkt i rummet. Kategorierna Möbler, Flytta & färga och Idéer samt tre rumidéer ger enkla ingångar; idéerna kan ångras.
 - **Kläder:** kombinera kjol, byxor, klänning, hängselbyxor och pyjamas med sex färger, fem mönster, solhatt eller krona, tre frisyrer, rosett och skor. Bildkategorier delar upp kläder, hår, accessoarer och sparade stilar. Sexton illustrerade accessoarer används för huvudbonader, hårspännen, glasögon, halsband, väskor och Sigges detaljer. Sex egna favoritstilar kan sparas och återställas med målningen. Klänningens färg väljs gemensamt för hela plagget.
 - **Smink:** välj färg och måla egna streck med fingret på kinder, läppar och ögon. Hela huvudet och axlarna ryms i spegeln. Tre penselstorlekar, glitter, målade hjärtan och blommor, lokalt sudd, ångra och tvätta bort finns. En förhandsvisning visar hela stilen. Glasögonen tas tillfälligt av under målningen och syns i förhandsvisningen. Markeringarna sparas och syns på Lea i andra vyer. Ett stillastående tryck målar inte.
@@ -66,7 +66,7 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 
 ## Verifiering och nästa nivå
 
-Version 0.8 passerar 137 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
+Version 0.10.0 passerar 148 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
 
 ## Spela från iPads hemskärm
 

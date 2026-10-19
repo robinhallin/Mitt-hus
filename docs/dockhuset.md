@@ -1,6 +1,6 @@
-# Leas 3D-dockhus – version 0.9
+# Leas rum – version 0.10.0
 
-Rummet är en lokal WebGL-scen med riktiga modeller av Lea, Sigge, möbler och leksaker. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
+Rummet är en lokal WebGL-scen med riktiga 3D-modeller av möbler och leksaker samt Lea och Sigges illustrerade utseende på bildplan i scenen. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
 
 ## Lek
 
@@ -43,3 +43,15 @@ Spelkameran visar rummet inifrån, med golv och väggar genom hela bildytan. Den
 Två fasta knappar öppnar Lek och Inred. Tryck på figurer och möbler ger små bildval direkt i rummet. I inredningsläge går det att dra möbler direkt och välja vridning eller färg. Leklådan har en ingång till lekar inne i rummet och till alla tidigare aktiviteter. Canvas och spelbehållare är låsta till hela den tillgängliga webbytan.
 
 137 tester passerar, inklusive regressionstest av rummets faktiska kameraskala och bildtäckning, oförändrad kamera när menyer öppnas samt de befintliga drag-, apport- och teinteraktionerna. Den nya scenen är separat CPU-renderad och visuellt granskad. Fysisk iPad och faktisk WebGL-rendering har fortfarande inte kunnat verifieras här.
+
+## Sammanhållen spelvy och användbarhet (0.10.0)
+
+Den nya skärmen har en samlad bildmeny med sex val. Foto, hjälp och inställningar ligger separat. Leklåda och möbelkatalog öppnas i en stor, stängbar panel. Val på figurer och föremål visas i en liten kontextmeny. Inredningsläget har en synlig Klar-knapp och tjugo steg Ångra. Att gå till en annan aktivitet lämnar inredningsläget. Ljus och ljud uppdateras utan att återskapa scenen. Storleksändringar behåller grafikresurserna och avbryter pågående drag säkert.
+
+Lea och Sigge visas med samma etablerade illustrationer som i de andra aktiviteterna. Figurerna ritas på transparenta, kameravända bildplan i 3D-scenen med djup, golvskuggor och rörelse. Det är en avsiktlig blandning av illustrerade figurer och verklig 3D-inredning. Leas kläder, frisyr, accessoarer och ansiktsmålning används vid bildrenderingen. Pekval följer den synliga silhuetten och ignorerar bildens transparenta kanter. Färdiga bildladdningar kan inte skriva till ett rum som redan lämnats. En enkel lokal figurbild används om SVG-kompositionen inte kan läsas av enheten.
+
+Grundmöbleringen ger garderob, sminkbord och fikabord egna fria ytor. Nya möbler placeras på lediga platser. Möbler och bord får inte överlappa. Småsaker kan inte tappas inne i en stängd garderob. Nallen följer med när fikabordet flyttas. Kuddar faller till golvet när sängen tas bort. Figurer som hamnar i en flyttad möbel får en närliggande fri plats. Kamera och bildutsnitt är stabila och anpassas till surfplatta och bred mobil. Golvdrag och extra fingrar ändrar inte kameran.
+
+148 automatiska tester passerar, inklusive synliga figurers tryckytor, sena bildladdningar, flyttning och avbrott, inredningslägen, ångra, föremålsplacering, små kopptryck samt att hela grundmöbler ryms ovanför bildmenyn. Scengeometri och de faktiska figurtexturerna har granskats i separat CPU-rendering i 1180×820, 1024×768 och 844×390. Kontrollerna i dessa granskningsbilder är schematiska, inte webbläsarskärmbilder. Full webbläsarlayout, Safari/WebGL och fysisk iPad är fortfarande inte verifierade.
+
+Det återanvändbara granskningsskriptet finns i tools/render-room-qa.mjs och använder den redan installerade arbetsmiljöns bildbibliotek. Spelet självt behöver inga installerade paket.
