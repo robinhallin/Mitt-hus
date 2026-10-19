@@ -1,5 +1,5 @@
-const CACHE = 'lea-sigge-v1.0.0';
-const FILES = ['./','./index.html','./manifest.webmanifest','./src/app.js','./src/art.js','./src/state.js','./src/style.css','./assets/icon.svg','./assets/lea-sigge.webp'];
+const CACHE = 'lea-sigge-v2.0.0';
+const FILES = ['./','./index.html','./manifest.webmanifest','./src/app.js','./src/art.js','./src/state.js','./src/world.js','./src/play-art.js','./src/play-views.js','./src/style.css','./assets/icon.svg','./assets/lea-sigge.webp'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('lea-sigge-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch', event => {

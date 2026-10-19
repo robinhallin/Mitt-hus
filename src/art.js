@@ -5,10 +5,12 @@ export const icons = {
 export const icon = name => `<span class="emoji" aria-hidden="true">${icons[name] || '✨'}</span>`;
 export function lea(s, face = false) {
  const c = s.lea, m = s.makeup, hair = PALETTES.hair[c.hair];
+ const bottom = PALETTES.tops[c.bottom ?? 0];
  const top = PALETTES.tops[c.top], shoes = ['#f7e5ed','#9caad6','#e6b063','#7daf9e'][c.shoes];
  const blush = m.cheeks !== null ? ['#ed8fa5','#e7aa91','#dba2b7','#ecb3aa'][m.cheeks] : '#efb6aa';
  return `<svg class="lea-art ${face?'closeup':''}" viewBox="${face?'72 0 255 270':'0 0 400 610'}" xmlns="http://www.w3.org/2000/svg" aria-label="Lea med dina valda kläder och färger" role="img">
  <defs><linearGradient id="hair" x2=".9" y2="1"><stop stop-color="${hair}"/><stop offset=".5" stop-color="#dab27a"/><stop offset="1" stop-color="${hair}"/></linearGradient><linearGradient id="skin" x2="1" y2="1"><stop stop-color="#ffdfbf"/><stop offset="1" stop-color="#f3bb98"/></linearGradient></defs>
+ <defs><pattern id="clothing-pattern" width="28" height="28" patternUnits="userSpaceOnUse">${c.pattern==='dots'?'<circle cx="14" cy="14" r="4" fill="#ffffffa0"/>':c.pattern==='stripes'?'<path d="M0 7h28" stroke="#ffffff80" stroke-width="6"/>':c.pattern==='stars'?'<path d="M14 4l3 7 7 1-6 5 2 7-6-4-6 4 1-7-5-5 7-1Z" fill="#fff8"/>':c.pattern==='hearts'?'<path d="M14 23L4 12Q0 0 14 7Q28 0 24 12Z" fill="#fff8"/>':''}</pattern></defs>
  <ellipse cx="201" cy="587" rx="95" ry="14" fill="#69526d" opacity=".12"/>
  ${c.hairstyle==='pigtails'?'<path d="M107 109Q34 80 53 242Q81 266 108 213M287 109Q365 80 346 242Q320 266 287 213" fill="url(#hair)"/>':''}
  ${c.hairstyle==='ponytail'?'<path d="M286 73Q368 68 336 237Q293 262 285 191" fill="url(#hair)"/>':''}
@@ -16,8 +18,11 @@ export function lea(s, face = false) {
  <path d="M167 211v54h67v-54" fill="url(#skin)"/>
  <path d="M147 260Q105 261 99 317L77 414Q80 437 98 431L129 346L130 423H272L272 347L301 426Q316 440 325 419L304 318Q294 265 253 260Z" fill="url(#skin)" stroke="#d99d7c" stroke-width="2"/>
  <path d="M134 404L143 548Q150 564 168 550L182 448H215L232 549Q246 561 261 549L268 403Z" fill="url(#skin)" stroke="#dda584" stroke-width="2"/>
- ${c.outfit==='trousers'?`<path d="M130 390L139 542H174L199 449L228 542H265L272 390Z" fill="#99b6d2"/><path d="M199 412v37" stroke="#7797b8" stroke-width="3"/>`:`<path d="M134 374Q121 424 104 454Q194 485 287 454L266 374Z" fill="${c.outfit==='dress'?top:'#b4a0d8'}" stroke="#947cae" stroke-width="2"/><path d="M144 398L133 457M176 403L172 465M224 402L228 465M254 398L267 457" stroke="#fff" opacity=".35" stroke-width="5"/>`}
+ ${['trousers','overalls','pajamas'].includes(c.outfit)?`<path d="M130 390L139 542H174L199 449L228 542H265L272 390Z" fill="${bottom}"/><path d="M199 412v37" stroke="#7797b8" stroke-width="3"/>`:`<path d="M134 374Q121 424 104 454Q194 485 287 454L266 374Z" fill="${c.outfit==='dress'?top:bottom}" stroke="#947cae" stroke-width="2"/><path d="M144 398L133 457M176 403L172 465M224 402L228 465M254 398L267 457" stroke="#fff" opacity=".35" stroke-width="5"/>`}
  <path d="M148 253Q196 278 248 253L284 274L301 321L266 337L259 392Q201 410 138 392L132 336L99 323L115 279Z" fill="${top}" stroke="#fff" stroke-opacity=".4" stroke-width="3"/>
+ <path d="M148 253Q196 278 248 253L284 274L301 321L266 337L259 392Q201 410 138 392L132 336L99 323L115 279Z" fill="url(#clothing-pattern)"/>
+ ${c.outfit==='overalls'?`<path d="M147 269l12-2 8 52h65l9-52 12 3-7 67v63h-91v-64Z" fill="${bottom}"/><path d="M179 342h44v31h-44Z" fill="#fff3"/><g fill="#f9e7b3"><circle cx="163" cy="326" r="5"/><circle cx="238" cy="326" r="5"/></g>`:''}
+ ${c.outfit==='pajamas'?'<path d="M210 308Q188 331 214 344Q175 344 188 315Z" fill="#fff6d0"/>':''}
  <path d="M169 262Q199 291 231 263" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="4"/>
  <path d="M145 540L133 558Q114 579 135 585H176L177 546Z M231 542L228 582H276Q290 578 271 558L260 542Z" fill="${shoes}" stroke="#c19eaa" stroke-width="2"/><path d="M143 563h24M241 563h24" stroke="white" stroke-width="4"/>
  <ellipse cx="106" cy="150" rx="16" ry="25" fill="url(#skin)"/><ellipse cx="288" cy="150" rx="16" ry="25" fill="url(#skin)"/>
@@ -31,6 +36,7 @@ export function lea(s, face = false) {
  <ellipse cx="135" cy="180" rx="20" ry="11" fill="${blush}" opacity="${m.cheeks!==null?'.65':'.35'}"/><ellipse cx="263" cy="180" rx="20" ry="11" fill="${blush}" opacity="${m.cheeks!==null?'.65':'.35'}"/>
  <path d="M196 160l-5 20q8 6 16 0" fill="none" stroke="#d89b80" stroke-width="3" stroke-linecap="round"/>
  <path d="M171 200Q200 214 228 199Q202 239 171 200Z" fill="${m.lips!==null?PALETTES.lips[m.lips]:'#ba6f6b'}"/><path d="M180 204Q201 212 220 203L214 213H186Z" fill="white"/>
+ ${c.headwear==='crown'?'<path d="M123 66L114 20L154 42L195 7L236 42L278 20L268 66Z" fill="#e8cd80" stroke="#c5a75c" stroke-width="3"/>':c.headwear==='sunhat'?'<path d="M118 66Q121 8 197 9Q270 8 276 66" fill="#e9d1a0" stroke="#cfb682" stroke-width="3"/><ellipse cx="197" cy="68" rx="115" ry="19" fill="#eedbad" stroke="#cfb682" stroke-width="3"/><path d="M126 46q70 23 140 0" fill="none" stroke="#cd99b2" stroke-width="13"/>':''}
  ${c.bow?'<g transform="translate(269 78) rotate(20)"><path d="M0 0L-29 -16Q-41 2 -26 20L0 8L28 22Q40 1 28 -16Z" fill="#e797b1" stroke="#c57194" stroke-width="2"/><circle cx="0" cy="5" r="9" fill="#f0b1c8"/></g>':''}
  </svg>`;
 }
@@ -57,13 +63,5 @@ export function roomArt(s) {
  <path d="M0 485H1200V720H0Z" fill="#e5c6aa"/><path d="M0 485h1200" stroke="#fff9ee" stroke-width="16"/><g stroke="#cda88c" stroke-width="2" opacity=".45"><path d="M0 563h1200M0 660h1200M300 490l-70 230M600 490v230M900 490l70 230"/></g>
  <rect x="450" y="65" width="280" height="285" rx="120" fill="#fff9ee"/><path d="M471 200Q471 80 590 84Q710 80 710 200V327H471Z" fill="url(#window)"/><circle cx="649" cy="152" r="34" fill="#fff6c7"/><path d="M471 288Q550 228 620 284Q678 240 710 270V327H471" fill="#a2c2a3"/><path d="M590 88v240M470 211h240" stroke="#fff9ee" stroke-width="13"/>
  <path d="M447 61Q408 193 434 348L480 348Q459 200 486 69Z M726 61Q775 211 744 348H703Q721 209 687 69Z" fill="#d9b5bf"/><path d="M435 61h301" stroke="#9e7c76" stroke-width="8" stroke-linecap="round"/>
- <rect x="862" y="333" width="280" height="180" rx="22" fill="#faf3e4" stroke="#cdb4a0" stroke-width="5"/><rect x="874" y="363" width="256" height="143" rx="15" fill="#c9badb"/><path d="M880 416h245M880 465h245" stroke="#b3a0c9" stroke-width="2"/><rect x="879" y="342" width="95" height="56" rx="15" fill="#fff9ee"/><rect x="866" y="500" width="14" height="52" rx="6" fill="#cdb4a0"/><rect x="1124" y="500" width="14" height="52" rx="6" fill="#cdb4a0"/>
- <rect x="66" y="125" width="190" height="372" rx="22" fill="#f1ded4" stroke="#c6a598" stroke-width="5"/><path d="M161 135v347" stroke="#c6a598" stroke-width="3"/><rect x="84" y="144" width="60" height="310" rx="23" fill="#f7eae2"/><rect x="179" y="144" width="60" height="310" rx="23" fill="#f7eae2"/><circle cx="146" cy="315" r="6" fill="#b88b6d"/><circle cx="177" cy="315" r="6" fill="#b88b6d"/>
- <path d="M298 378h145v20H298Z" fill="#d4b19b"/><path d="M311 398l-9 100M430 398l10 100" stroke="#c39b82" stroke-width="12" stroke-linecap="round"/><ellipse cx="371" cy="282" rx="64" ry="85" fill="#fff6e7" stroke="#d4b19b" stroke-width="10"/><ellipse cx="371" cy="282" rx="48" ry="67" fill="#deece9"/><path d="M345 252l30-22" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
- <rect x="328" y="355" width="15" height="24" rx="4" fill="#c781a0"/><rect x="395" y="348" width="18" height="30" rx="4" fill="#a4bba3"/>
- <path d="M822 130h280" stroke="#c5a489" stroke-width="13" stroke-linecap="round"/><path d="M840 130V79h22v51M871 130V62h22v68M902 130V83h19v47" stroke="#b9a1ce" stroke-width="3" fill="#b9a1ce"/><path d="M985 128V99Q958 81 972 64Q995 66 990 93Q1004 68 1024 79Q1025 101 997 105v23" fill="#90b392"/><path d="M970 113h42l-7 17h-28" fill="#d79e87"/>
- <ellipse cx="600" cy="601" rx="267" ry="91" fill="#f5e9d8"/><ellipse cx="600" cy="601" rx="241" ry="72" fill="none" stroke="#dfc7c3" stroke-width="4" stroke-dasharray="6 9"/>
- <rect x="72" y="550" width="133" height="91" rx="14" fill="#b3c5b1"/><path d="M75 574h126" stroke="#9fb09b" stroke-width="5"/><path d="M121 550v-12q19-18 37 0v12" stroke="#9fb09b" stroke-width="7" fill="none"/>
- <g transform="translate(1028 553)"><path d="M0 40Q-20 10 0-15Q12-23 19-10Q45-34 53-9Q66-1 50 21L23 48Z" fill="#db9baf"/><path d="M15 45l17-28" stroke="#bb7c94" stroke-width="3"/></g>
  </svg>`;
 }

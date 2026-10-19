@@ -1,3 +1,4 @@
+import { defaultFurniture, normalizeFurniture, freshAdventures, normalizeAdventures, OUTFITS, PATTERNS, HEADWEAR } from './world.js';
 export const SAVE_KEY = 'lea-sigge-world-v1';
 export const PALETTES = {
   tops: ['#d95b84', '#a99ad9', '#71b5ac', '#f3c56d', '#79a9d0', '#e8976e'],
@@ -27,11 +28,11 @@ export const STICKERS = ['flower', 'star', 'heart', 'paw', 'moon', 'rainbow'];
 export function freshState() {
   return {
     version: 1, entered: false, sound: true,
-    lea: { top: 0, outfit: 'skirt', shoes: 0, hair: 3, hairstyle: 'loose', bow: false },
+    lea: { top: 0, outfit: 'skirt', shoes: 0, hair: 3, hairstyle: 'loose', bow: false, bottom: 0, pattern: 'plain', headwear: 'none' },
     makeup: { lips: null, cheeks: null, eyes: null },
-    room: { wall: 0, stickers: [] },
+    room: { wall: 0, stickers: [], furniture: defaultFurniture() },
     dog: { brushed: 0, clean: [false, false, false, false, false], fed: false, collar: '#68a99d' },
-    tidy: [], teeth: Array(8).fill(false), done: [],
+    tidy: [], teeth: Array(8).fill(false), done: [], adventures: freshAdventures(),
   };
 }
 const index = (value, max, fallback = 0) => Number.isInteger(value) && value >= 0 && value < max ? value : fallback;
@@ -43,9 +44,14 @@ export function normalizeState(raw) {
   s.sound = raw.sound !== false;
   for (const k of ['top', 'hair']) s.lea[k] = index(raw.lea?.[k], k === 'top' ? 6 : 4, s.lea[k]);
   s.lea.shoes = index(raw.lea?.shoes, 4);
-  s.lea.outfit = ['skirt', 'trousers', 'dress'].includes(raw.lea?.outfit) ? raw.lea.outfit : 'skirt';
+  s.lea.outfit = OUTFITS.includes(raw.lea?.outfit) ? raw.lea.outfit : 'skirt';
   s.lea.hairstyle = ['loose', 'ponytail', 'pigtails'].includes(raw.lea?.hairstyle) ? raw.lea.hairstyle : 'loose';
   s.lea.bow = raw.lea?.bow === true;
+  s.lea.bottom = index(raw.lea?.bottom, 6);
+  s.lea.pattern = PATTERNS.includes(raw.lea?.pattern) ? raw.lea.pattern : 'plain';
+  s.lea.headwear = HEADWEAR.includes(raw.lea?.headwear) ? raw.lea.headwear : 'none';
+  s.room.furniture = normalizeFurniture(raw.room?.furniture);
+  s.adventures = normalizeAdventures(raw.adventures);
   for (const k of ['lips', 'cheeks', 'eyes']) {
     const v = raw.makeup?.[k];
     s.makeup[k] = v === null || v === undefined ? null : index(v, 4, null);

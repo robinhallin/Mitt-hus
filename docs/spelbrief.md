@@ -11,3 +11,11 @@ Teknik: modulär JavaScript, CSS och redigerbar SVG utan externa körtidsberoend
 ## Fortsatt utveckling
 
 Nästa arbete bör utgå från hur Lea faktiskt spelar: justera symboler, storlek, tempo och hjälpröst, utveckla en mer konsekvent karaktärsgrafik och lägg därefter till fri möblering, fler pyssel och korta berättelser med Sigge. Den här versionen har inga köp, annonser eller nätbaserade spelardata.
+
+## Version 0.2 – fri lek och berättelser
+
+Rummet har nu flyttbara möbler i åtta typer med färg, vändning, borttagning och ångra. Samma möblering visas i hemvyn. Garderoben har fem plaggkombinationer, separata underdelsfärger, fem mönster, solhatt och krona.
+
+Tre frivilliga berättelser knyter ihop aktiviteterna: picknick med en leta-lek i trädgården, Sigges kalas och en mysig kväll. Varje berättelse sparar sitt eget steg. Att byta berättelse raderar inte den förra. När en aktivitetsdel förbereds för omspel återställs bara den aktuella aktiviteten; intjänade minnen finns kvar.
+
+Versionen är verifierad med 41 automatiska tester och XML-validering av 36 grafiska varianter. Visuell webbläsargranskning och fysisk iPad återstår.
