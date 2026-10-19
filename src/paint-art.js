@@ -1,22 +1,11 @@
-import {leaSprite,identityLayers,leaAccessories,LEA_FACE_FRAME} from './lea-appearance.js';
 import {DOG_VIEW,dogSilhouette} from './character-layout.js';
 import {PALETTES} from './state.js';
-import {FACE_ZONES,DOG_ZONES} from './touch.js';
-export const FACE_VIEW={x:280,y:80,w:380,h:330};
-const decimal=n=>Number(n.toFixed(4));
-export function pathData(points,w=1,h=1){return points.map((p,i)=>`${i?'L':'M'}${decimal(p.x*w)} ${decimal(p.y*h)}`).join(' ');}
-const width=tool=>({cheeks:.085,lips:.035,eyes:.035,sparkles:.055,eraser:.12,draw:.025})[tool]||.04;
-const color=stroke=>stroke.tool==='cheeks'?['#ed8fa5','#e7aa91','#dba2b7','#ecb3aa'][stroke.color]:stroke.tool==='sparkles'?['#e4bf70','#dca3bd','#c0acdb','#9fc7bd'][stroke.color]:PALETTES[stroke.tool]?.[stroke.color]||'#e8a8be';
-export function makeupDefinitions(prefix='face'){
- return `<defs>${Object.entries(FACE_ZONES).map(([key,zones])=>`<clipPath id="${prefix}-${key}">${zones.map(z=>`<ellipse cx="${z.x}" cy="${z.y}" rx="${z.rx}" ry="${z.ry}"/>`).join('')}</clipPath>`).join('')}</defs>`;
-}
-function strokePath(s,erase=false){return `<path d="${pathData(s.points)}" fill="none" stroke="${erase?'black':color(s)}" stroke-width="${width(s.tool)}" stroke-linecap="round" stroke-linejoin="round" opacity="${erase?1:s.tool==='cheeks'?.48:s.tool==='sparkles'?.8:.65}"/>`;}
-export function makeupPaint(s,live=null,prefix='face'){
- const list=[...s.touch.paint,...(live&&live.points.length>1?[live]:[])];let out='';
- for(const tool of ['cheeks','lips','eyes'])if(s.makeup[tool]!==null&&!list.some(v=>v.tool===tool)){const legacy={tool,color:s.makeup[tool]};out+=`<g clip-path="url(#${prefix}-${tool})"><rect width="1" height="1" fill="${color(legacy)}" opacity=".28"/></g>`;}
- list.forEach((stroke,i)=>{if(stroke.tool==='eraser'){const mask=`${prefix}-erase-${i}`;out=`<defs><mask id="${mask}" maskUnits="userSpaceOnUse" x="0" y="0" width="1" height="1"><rect width="1" height="1" fill="white"/>${strokePath(stroke,true)}</mask></defs><g mask="url(#${mask})">${out}</g>`;}else out+=`<g clip-path="url(#${prefix}-${stroke.tool})">${stroke.tool==='sparkles'?stroke.points.filter((_,j)=>j%3===0).map(p=>`<path d="M${p.x-.011} ${p.y}h.022M${p.x} ${p.y-.011}v.022" stroke="${color(stroke)}" stroke-width=".005" stroke-linecap="round"/>`).join(''):strokePath(stroke)}</g>`;});return out;
-}
-export function paintFace(s){const f=LEA_FACE_FRAME;return `<svg class="portrait-face" viewBox="${f.x} ${f.y} ${f.w} ${f.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lea med dina valda frisyrer och samma ansikte som på välkomstbilden"><image href="${leaSprite(s.lea)}" width="1024" height="1536"/>${identityLayers(s,'portrait')}<g transform="translate(${f.x} ${f.y}) scale(${f.w} ${f.h})">${makeupDefinitions('face')}<g class="makeup-paint-layer">${makeupPaint(s)}</g></g>${leaAccessories(s.lea)}</svg>`;}
+import {DOG_ZONES} from './touch.js';
+import {avatarContent} from './avatar.js';
+import {MAKEUP_VIEW} from './portrait-geometry.js';
+import {pathData} from './makeup-layer.js';
+export {makeupDefinitions,makeupPaint} from './makeup-layer.js';
+export function paintFace(s,{salon=false}={}){const v=MAKEUP_VIEW,model=salon?{...s,lea:{...s.lea,eyewear:'none'}}:s;return `<svg class="portrait-face" viewBox="${v.x} ${v.y} ${v.w} ${v.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lea, hela huvudet och axlarna synliga">${avatarContent(model,'face')}</svg>`;}
 export function drawingPaint(strokes,live=null,prefix='drawing'){
  const list=[...strokes,...(live?.points.length>1?[{color:live.color,eraser:live.tool==='eraser',points:live.points}]:[])];let out='';list.forEach((s,i)=>{if(s.eraser){const mask=`${prefix}-${i}`;out=`<defs><mask id="${mask}" maskUnits="userSpaceOnUse" x="0" y="0" width="1" height="1"><rect width="1" height="1" fill="white"/><path d="${pathData(s.points)}" fill="none" stroke="black" stroke-width=".1" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><g mask="url(#${mask})">${out}</g>`;}else out+=`<path d="${pathData(s.points)}" fill="none" stroke="${PALETTES.tops[s.color]}" stroke-width=".025" stroke-linecap="round" stroke-linejoin="round"/>`;});return out;
 }

@@ -1,3 +1,4 @@
+import {ACCESSORY_SLOTS} from './accessories.js';
 import { freshTouch, normalizeTouch, normalizeDrawing } from './touch.js';
 import { defaultFurniture, normalizeFurniture, freshAdventures, normalizeAdventures, OUTFITS, PATTERNS, HEADWEAR } from './world.js';
 export const SAVE_KEY = 'lea-sigge-world-v1';
@@ -25,15 +26,15 @@ export const TOYS = [
   { id: 'book', icon: 'book', name: 'Boken', box: 'books', x: 17, y: 64 },
   { id: 'pencils', icon: 'pencil', name: 'Pennorna', box: 'books', x: 54, y: 63 },
 ];
-export const STICKERS = ['flower', 'star', 'heart', 'paw', 'moon', 'rainbow'];
+export const STICKERS = ['flower', 'star', 'heart', 'paw', 'moon', 'rainbow', 'butterfly','sun','leaf','music','sparkles','cherry'];
 export function freshState() {
   return {
     version: 1, entered: false, sound: true,
-    lea: { top: 0, outfit: 'skirt', shoes: 0, hair: 3, hairstyle: 'loose', bow: false, bottom: 1, pattern: 'plain', headwear: 'none' },
+    lea: { top: 0, outfit: 'skirt', shoes: 0, hair: 3, hairstyle: 'loose', bow: false, bottom: 1, pattern: 'plain', headwear: 'none',hairclip:'none',eyewear:'none',necklace:'none',bag:'none' },
     makeup: { lips: null, cheeks: null, eyes: null },
     room: { wall: 0, stickers: [], furniture: defaultFurniture(), drawing: [] },
-    dog: { brushed: 0, clean: [false, false, false, false, false], fed: false, collar: '#68a99d' },
-    tidy: [], teeth: Array(8).fill(false), done: [], adventures: freshAdventures(), touch: freshTouch(),
+    dog: { brushed: 0, clean: [false, false, false, false, false], fed: false, collar: '#68a99d',accessory:'none',affection:0,played:0 },
+    tidy: [], teeth: Array(8).fill(false), done: [], looks:[], nextLookId:1, adventures: freshAdventures(), touch: freshTouch(),
   };
 }
 const index = (value, max, fallback = 0) => Number.isInteger(value) && value >= 0 && value < max ? value : fallback;
@@ -51,6 +52,8 @@ export function normalizeState(raw) {
   s.lea.bottom = index(raw.lea?.bottom, 6, s.lea.bottom);
   s.lea.pattern = PATTERNS.includes(raw.lea?.pattern) ? raw.lea.pattern : 'plain';
   s.lea.headwear = HEADWEAR.includes(raw.lea?.headwear) ? raw.lea.headwear : 'none';
+  for(const [slot,ids] of Object.entries(ACCESSORY_SLOTS))s.lea[slot]=ids.includes(raw.lea?.[slot])?raw.lea[slot]:slot==='hairclip'&&s.lea.bow?'bow':'none';
+  s.lea.bow=s.lea.hairclip==='bow';
   s.room.furniture = normalizeFurniture(raw.room?.furniture);
   s.room.drawing = normalizeDrawing(raw.room?.drawing);
   s.adventures = normalizeAdventures(raw.adventures);
@@ -70,6 +73,11 @@ export function normalizeState(raw) {
   s.teeth = s.teeth.map((_, i) => raw.teeth?.[i] === true);
   s.done = TASKS.filter(t => Array.isArray(raw.done) && raw.done.includes(t.id)).map(t => t.id);
   s.touch = normalizeTouch(raw.touch, s.dog, s.teeth);
+  s.dog.accessory=['none','bandana','bowtie'].includes(raw.dog?.accessory)?raw.dog.accessory:'none';
+  s.dog.affection=Math.max(0,Math.min(100,Number(raw.dog?.affection)||0));
+  s.dog.played=Math.max(0,Math.min(99,Math.floor(Number(raw.dog?.played)||0)));
+  s.looks=Array.isArray(raw.looks)?raw.looks.slice(0,6).filter(v=>v&&/^look-[0-9]+$/.test(v.id)).map(v=>{const n=normalizeState({version:1,lea:v.lea,makeup:v.makeup,touch:{paint:v.paint}});return{id:v.id,lea:n.lea,makeup:n.makeup,paint:n.touch.paint};}).filter((v,i,a)=>a.findIndex(q=>q.id===v.id)===i):[];
+  s.nextLookId=Math.max(Number.isInteger(raw.nextLookId)&&raw.nextLookId>0&&raw.nextLookId<1000000000?raw.nextLookId:1,...s.looks.map(v=>Number(v.id.slice(5))+1));
   return s;
 }
 export function load(storage) {
@@ -105,3 +113,6 @@ export function cleanTooth(state, i) {
   if (state.teeth.every(Boolean)) complete(state, 'teeth');
   return true;
 }
+
+export function saveLook(s){if(s.looks.length>=6)return false;const id=`look-${s.nextLookId++}`;s.looks.push({id,lea:structuredClone(s.lea),makeup:{...s.makeup},paint:structuredClone(s.touch.paint)});return true;}
+export function wearLook(s,id){const look=s.looks.find(v=>v.id===id);if(!look)return false;s.lea=structuredClone(look.lea);s.makeup={...look.makeup};s.touch.paint=structuredClone(look.paint);return true;}

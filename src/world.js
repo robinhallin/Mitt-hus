@@ -1,7 +1,7 @@
 export const ROOM_COLORS=['#c9badb','#d4aebd','#a5bdb0','#d7b991','#a9bed4','#e5d5bc'];
 export const OUTFITS=['skirt','trousers','dress','overalls','pajamas'];
 export const PATTERNS=['plain','dots','stripes','stars','hearts'];
-export const HEADWEAR=['none','sunhat','crown'];
+export const HEADWEAR=['none','sunhat','crown','flowers','unicorn','cat'];
 export const FURNITURE={
  wardrobe:{name:'Garderob',emoji:'🚪',w:17,h:48,scene:'dress'},
  vanity:{name:'Sminkbord',emoji:'🪞',w:17,h:38,scene:'makeup'},
@@ -49,3 +49,11 @@ export function chooseAdventure(s,id,replay=false){if(!ADVENTURES.some(a=>a.id==
 export function prepareAdventureStep(s){const a=activeAdventure(s);if(!a?.step||a.progress.prepared)return false;switch(a.step.event){case 'tidy':s.tidy=[];break;case 'teeth':s.teeth=Array(8).fill(false);if(s.touch)s.touch.teeth=Array(8).fill(0);break;case 'brush':s.dog.brushed=0;if(s.touch)s.touch.brush=Array(5).fill(0);break;case 'feed':s.dog.fed=false;break;}a.progress.prepared=true;return true;}
 export function advanceAdventure(s,event){const a=activeAdventure(s);if(!a?.step||a.step.event!==event)return null;a.progress.step++;a.progress.prepared=false;if(a.progress.step===a.story.steps.length&&!s.adventures.completed.includes(a.story.id))s.adventures.completed.push(a.story.id);return{title:a.story.title,finished:a.progress.step===a.story.steps.length,next:a.story.steps[a.progress.step]};}
 export function findGardenItem(s,id){const a=activeAdventure(s);if(!a||a.step?.event!=='garden'||!GARDEN_FINDS.some(f=>f.id===id)||a.progress.found.includes(id))return false;a.progress.found.push(id);return true;}
+
+// Small, reversible starting points for a child who wants an idea for the room.
+export const ROOM_IDEAS={
+ reading:{name:'Läshörna',emoji:'📚',items:[['rug',48,90,1],['shelf',19,64,0],['chair',43,79,2],['dogbed',58,93,3],['plant',83,74,2],['bed',79,92,1]]},
+ making:{name:'Pysselrum',emoji:'🎨',items:[['rug',54,91,3],['shelf',50,48,0],['chair',50,91,2],['vanity',18,72,1],['plant',84,76,2],['dogbed',68,93,3]]},
+ cozy:{name:'Mysrum',emoji:'🌙',items:[['rug',48,91,1],['bed',29,91,1],['shelf',76,65,0],['dogbed',56,93,3],['plant',88,80,2],['chair',70,90,2]]}
+};
+export function tryRoomIdea(s,id){const idea=Object.hasOwn(ROOM_IDEAS,id)?ROOM_IDEAS[id]:null;if(!idea)return false;s.room.furniture=normalizeFurniture(idea.items.map(([type,x,y,color],i)=>({id:`item-${i+1}`,type,x,y,color,flip:false})));return true;}

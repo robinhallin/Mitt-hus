@@ -8,9 +8,9 @@ import {leaSprite,LEA_FACE_SOURCE} from '../src/lea-appearance.js';
 import {DOG_MOUTH,DOG_ZONES,DOG_VIEW} from '../src/character-layout.js';
 import {createTouchController} from '../src/touch-controller.js';
 
-test('all 180 outfit, hairstyle, hair color and headwear combinations have complete assets and consistent portraits',async()=>{
+test('all 360 outfit, hairstyle, hair color and headwear combinations have complete assets and consistent portraits',async()=>{
  const s=freshState();s.lea.bow=true;
- for(const outfit of ['skirt','trousers','dress','overalls','pajamas'])for(const hairstyle of ['loose','ponytail','pigtails'])for(let hair=0;hair<4;hair++)for(const headwear of ['none','crown','sunhat']){
+ for(const outfit of ['skirt','trousers','dress','overalls','pajamas'])for(const hairstyle of ['loose','ponytail','pigtails'])for(let hair=0;hair<4;hair++)for(const headwear of ['none','crown','sunhat','flowers','unicorn','cat']){
  Object.assign(s.lea,{outfit,hairstyle,hair,headwear});const sprite=leaSprite(s.lea),avatar=identityAvatar(s),portrait=paintFace(s);
  assert.ok(avatar.includes(`href="${sprite}"`));assert.ok(portrait.includes(`href="${sprite}"`));assert.ok(avatar.includes(LEA_FACE_SOURCE));assert.ok(portrait.includes(LEA_FACE_SOURCE));assert.doesNotMatch(avatar+portrait,/undefined|NaN|extra-hair/);
  for(const path of new Set([...avatar.matchAll(/href="(\.\/[^\"]+)"/g)].map(v=>v[1])))await access(path);
@@ -18,7 +18,7 @@ test('all 180 outfit, hairstyle, hair color and headwear combinations have compl
 });
 test('clothing and hairstyle changes preserve painted strokes and survive reload',()=>{
  const s=freshState();s.touch.paint=[{tool:'lips',color:2,points:[{x:.43,y:.615},{x:.54,y:.615}]}];
- Object.assign(s.lea,{outfit:'overalls',hairstyle:'ponytail',headwear:'sunhat',hair:2,bow:true});const n=normalizeState(JSON.parse(JSON.stringify(s)));
+ Object.assign(s.lea,{outfit:'overalls',hairstyle:'ponytail',headwear:'sunhat',hair:2,bow:true,hairclip:'bow'});const n=normalizeState(JSON.parse(JSON.stringify(s)));
  assert.deepEqual(n.lea,s.lea);assert.deepEqual(n.touch.paint,s.touch.paint);assert.match(identityAvatar(n),/avatar-lips/);assert.match(paintFace(n),/face-lips/);
 });
 test('food must reach the new illustrated mouth, not an old body location or a stationary touch',()=>{

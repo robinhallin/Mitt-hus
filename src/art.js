@@ -1,9 +1,10 @@
+import {dogAccessories} from './accessories.js';
 import {DOG_VIEW,dogImage} from './character-layout.js';
 import {identityAvatar} from './avatar.js';
 import {paintFace} from './paint-art.js';
 import { PALETTES } from './state.js';
 export const icons = {
- home:'🏡', dress:'👗', makeup:'🎨', tidy:'🧺', dog:'🐾', teeth:'🪥', craft:'🌈', album:'⭐', shirt:'👕', mirror:'🪞', paw:'🐾', drop:'🫧', tooth:'🦷', basket:'🧺', flower:'🌸', star:'⭐', heart:'💗', moon:'🌙', rainbow:'🌈', bear:'🧸', ball:'🏐', bow:'🎀', brush:'🪮', book:'📖', pencil:'🖍️', sound:'🔊', mute:'🔇', back:'←', check:'✓', food:'🦴'
+ butterfly:'🦋',sun:'☀️',leaf:'🍃',music:'🎵',sparkles:'✨',cherry:'🍒',home:'🏡', dress:'👗', makeup:'🎨', tidy:'🧺', dog:'🐾', teeth:'🪥', craft:'🌈', album:'⭐', shirt:'👕', mirror:'🪞', paw:'🐾', drop:'🫧', tooth:'🦷', basket:'🧺', flower:'🌸', star:'⭐', heart:'💗', moon:'🌙', rainbow:'🌈', bear:'🧸', ball:'🏐', bow:'🎀', brush:'🪮', book:'📖', pencil:'🖍️', sound:'🔊', mute:'🔇', back:'←', check:'✓', food:'🦴'
 };
 export const icon = name => `<span class="emoji" aria-hidden="true">${icons[name] || '✨'}</span>`;
 export function lea(s, face = false) { return face ? paintFace(s) : identityAvatar(s); }
@@ -13,7 +14,7 @@ export function dog(s) {
  <filter id="collar-pixels" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -6 6 0 0 0"/></filter>
  <mask id="sigge-collar" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">${dogImage('filter="url(#collar-pixels)"')}</mask>
  <filter id="collar-tint" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${rgb.map(k=>`${.2126*k} ${.7152*k} ${.0722*k} 0 0`).join(' ')} 0 0 0 1 0"/></filter></defs>
- ${dogImage()}${s.dog.collar!=='#68a99d'?`<g mask="url(#sigge-collar)">${dogImage('filter="url(#collar-tint)"')}</g>`:''}</svg>`;
+ ${dogImage()}${s.dog.collar!=='#68a99d'?`<g mask="url(#sigge-collar)">${dogImage('filter="url(#collar-tint)"')}</g>`:''}${dogAccessories(s.dog)}</svg>`;
 }
 export function roomArt(s) {
  return `<svg class="room-background" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
