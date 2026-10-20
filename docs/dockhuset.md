@@ -1,4 +1,4 @@
-# Leas rum – version 0.11.0
+# Leas rum – version 0.12.0
 
 Rummet är en lokal WebGL-scen med riktiga 3D-modeller av möbler och leksaker samt animerade 3D-modeller av Lea och Sigge. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
 
@@ -21,7 +21,7 @@ Kameran anpassas till stående och liggande skärm. Grafikens upplösning och bi
 
 Alla nya värden läggs till befintligt sparformat. Gamla kläder, målningar, möbler och framsteg behålls. Dörrar, gardiner, ljus, möbler, koja, bildramar och kamera sparas lokalt med resten av spelet.
 
-149 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
+151 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
 
 
 ## Liggande spelvy och mer liv (0.9)
@@ -55,3 +55,7 @@ Grundmöbleringen ger garderob, sminkbord och fikabord egna fria ytor. Nya möbl
 148 automatiska tester passerar, inklusive synliga figurers tryckytor, sena bildladdningar, flyttning och avbrott, inredningslägen, ångra, föremålsplacering, små kopptryck samt att hela grundmöbler ryms ovanför bildmenyn. Scengeometri och de faktiska figurtexturerna har granskats i separat CPU-rendering i 1180×820, 1024×768 och 844×390. Kontrollerna i dessa granskningsbilder är schematiska, inte webbläsarskärmbilder. Full webbläsarlayout, Safari/WebGL och fysisk iPad är fortfarande inte verifierade.
 
 Det återanvändbara granskningsskriptet finns i tools/render-room-qa.mjs och använder den redan installerade arbetsmiljöns bildbibliotek. Spelet självt behöver inga installerade paket.
+
+## Material och modeller (0.12)
+
+Rummet har egen lokalt genererad botanisk tapet, målad panel, fiskbensparkett, vävd blomstermatta, quiltat täcke och spegelglas. Gardinerna har tredimensionella veck och en försiktig rörelse. Kontaktskuggor följer möbler, leksaker och figurer; dagsljuset släcks när gardinen dras för eller det blir natt. Garderobens lister, sängens stoppade gavel, sminkbordets bricka och bokryggarna är modellerade och följer möblerna. Leas hår har en sammanhängande skalp och formade lockar för samtliga frisyrer. Ornament med gemensamt material slås ihop inom sitt moderobjekt; dörrar, lådor och animerade delar bevaras.
