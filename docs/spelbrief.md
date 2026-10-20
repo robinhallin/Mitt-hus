@@ -1,26 +1,29 @@
-# Spelbrief
+# Spelbrief – Lea & Sigge
 
-## Bekräftat av beställaren
+Ett personligt lekspel för femåriga Lea på iPad/surfplatta. Lea gillar kläder, smink, pyssel, organisering och enkla omvårdnadslekar. Hennes följeslagare är golden retrievern Sigge. En delad bild används som inspiration för Lea; originalfotot ska inte ingå i det offentliga kodrepot.
 
-- Ett eget ordentligt spel från grunden för hans femåriga dotter.
-- Hon gillar att bygga, pyssla och inreda.
-- Hon ska spela på surfplatta/iPad.
-- Koden ska utvecklas i GitHub-repot `robinhallin/Mitt-hus`.
-- Det tidigare husprojektet får rensas från huvudgrenen.
+## Första spelbara versionen
 
-## Att precisera inför implementation
+Rummet är navet. Därifrån går spelaren till garderoben, spegeln, pysselväggen, sorteringsleken, Sigge och tandborstningen. Kläder, smink, väggfärg och klistermärken syns efter bytet. Framsteg sparas automatiskt på samma enhet. Minnen firar utforskande utan tidspress eller krav på prestation.
 
-- Vilken specifik spelidé eller vilket referensspel ska styra?
-- Vad ska barnet kunna göra i den första spelbara versionen?
-- Ska uttrycket vara 2D, ett dockhus med djup eller full 3D?
+Teknik: modulär JavaScript, CSS och redigerbar SVG utan externa körtidsberoenden. Samma kontroller stödjer klick och pekskärm; sortering har ett tryckalternativ till drag. Svenska hjälpröster använder enhetens tillgängliga röster.
 
-## Tidigare förslag, ännu inte fastställda krav
+## Fortsatt utveckling
 
-- Stora bildknappar och pekstyrning.
-- Svenska rösttips och möjlighet att spela utan att läsa.
-- Sparande på enheten.
-- Välja rum, färgsätta och möblera.
+Nästa arbete bör utgå från hur Lea faktiskt spelar: justera symboler, storlek, tempo och hjälpröst, utveckla en mer konsekvent karaktärsgrafik och lägg därefter till fri möblering, fler pyssel och korta berättelser med Sigge. Den här versionen har inga köp, annonser eller nätbaserade spelardata.
 
-## Arkiv
+## Version 0.2 – fri lek och berättelser
 
-Husprojektet är bevarat på grenen `archive/house-before-kids-game-2026-10-19`. Den nya utvecklingen utgår från huvudgrenen `main`.
+Rummet har nu flyttbara möbler i åtta typer med färg, vändning, borttagning och ångra. Samma möblering visas i hemvyn. Garderoben har fem plaggkombinationer, separata underdelsfärger, fem mönster, solhatt och krona.
+
+Tre frivilliga berättelser knyter ihop aktiviteterna: picknick med en leta-lek i trädgården, Sigges kalas och en mysig kväll. Varje berättelse sparar sitt eget steg. Att byta berättelse raderar inte den förra. När en aktivitetsdel förbereds för omspel återställs bara den aktuella aktiviteten; intjänade minnen finns kvar.
+
+Versionen är verifierad med 41 automatiska tester och XML-validering av 36 grafiska varianter. Visuell webbläsargranskning och fysisk iPad återstår.
+
+## Version 0.3 – fingerlek på surfplatta
+
+Hunden borstas lokalt genom rörelse över fem kroppsdelar. Tvål, sköljning och torkning är tre olika steg per del. Smink och fri ritning lagrar faktiska penseldrag med sudd och ångra. Tandborstning kräver rörelse över varje tand. Verktygen följer fingret och scenerna byggs inte om mitt i ett svep. Fångad pekare, sammanslagna pekhändelser och avbrott hanteras gemensamt.
+
+Leas ansikte hämtas direkt från välkomstbilden. Matchande kroppar med flera plagg ger enhetlig karaktärsgrafik; klädfärger maskas så att hud och ansikte bevaras. De tre berättelserna fortsätter använda samma aktiviteter och sparningar.
+
+Appmanifest, PNG-ikoner, säkra skärmkanter och layout i båda riktningar är uppdaterade. Den privata versionen kan läggas på hemskärmen som webbapp. 62 automatiska tester passerar; full browserlayout och fysisk iPad återstår att prova.

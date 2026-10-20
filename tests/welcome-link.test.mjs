@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { freshState, SAVE_KEY } from '../src/state.js';
+const s=freshState();s.entered=true;s.lea.top=4;s.done=['outfit'];s.adventures.completed=['picnic'];
+let stored=JSON.stringify(s);const handlers={};
+const app={innerHTML:'',addEventListener:(k,fn)=>handlers[k]=fn};
+const stub={textContent:'',classList:{add(){},remove(){}},focus(){},replaceChildren(){}};
+globalThis.document={querySelector:q=>q==='#app'?app:stub,createTextNode:v=>v};
+globalThis.window={localStorage:{getItem:k=>k===SAVE_KEY?stored:null,setItem:(k,v)=>stored=v},addEventListener(){}};
+globalThis.location={search:'?start=1',protocol:'https:'};
+await import('../src/app.js');
+test('direct welcome link shows Lea and Sigge despite an existing saved game',()=>{assert.match(app.innerHTML,/Nu leker vi/);assert.match(app.innerHTML,/assets\/lea-sigge.webp/);assert.equal(JSON.parse(stored).entered,true);assert.deepEqual(JSON.parse(stored),s);});
+test('entering from the welcome link returns to the saved world',()=>{handlers.click({target:{closest:()=>({dataset:{action:'enter',value:''}})}});assert.match(app.innerHTML,/VÄLKOMMEN HEM/);assert.doesNotMatch(app.innerHTML,/Nu leker vi/);assert.equal(JSON.parse(stored).lea.top,4);assert.deepEqual(JSON.parse(stored).done,['outfit']);assert.deepEqual(JSON.parse(stored).adventures.completed,['picnic']);});

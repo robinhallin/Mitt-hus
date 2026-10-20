@@ -1,0 +1,18 @@
+import {DOG_VIEW,dogSilhouette} from './character-layout.js';
+import {PALETTES} from './state.js';
+import {DOG_ZONES} from './touch.js';
+import {avatarContent} from './avatar.js';
+import {MAKEUP_VIEW} from './portrait-geometry.js';
+import {pathData} from './makeup-layer.js';
+export {makeupDefinitions,makeupPaint} from './makeup-layer.js';
+export function paintFace(s,{salon=false}={}){const v=MAKEUP_VIEW,model=salon?{...s,lea:{...s.lea,eyewear:'none'}}:s;return `<svg class="portrait-face" viewBox="${v.x} ${v.y} ${v.w} ${v.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lea, hela huvudet och axlarna synliga">${avatarContent(model,'face')}</svg>`;}
+export function drawingPaint(strokes,live=null,prefix='drawing'){
+ const list=[...strokes,...(live?.points.length>1?[{color:live.color,eraser:live.tool==='eraser',points:live.points}]:[])];let out='';list.forEach((s,i)=>{if(s.eraser){const mask=`${prefix}-${i}`;out=`<defs><mask id="${mask}" maskUnits="userSpaceOnUse" x="0" y="0" width="1" height="1"><rect width="1" height="1" fill="white"/><path d="${pathData(s.points)}" fill="none" stroke="black" stroke-width=".1" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><g mask="url(#${mask})">${out}</g>`;}else out+=`<path d="${pathData(s.points)}" fill="none" stroke="${PALETTES.tops[s.color]}" stroke-width=".025" stroke-linecap="round" stroke-linejoin="round"/>`;});return out;
+}
+export function dogEffects(s){
+ return `<svg class="care-effects" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>${dogSilhouette('care')}<radialGradient id="spa-mud"><stop stop-color="#98754f"/><stop offset="1" stop-color="#b08d61"/></radialGradient></defs><g mask="url(#care-silhouette)">${DOG_ZONES.map((z,i)=>{
+ const x=z.x*1024,y=(i===0?.055:z.y)*1024,rx=(i===0?.13:z.rx)*820,ry=(i===0?.035:z.ry)*650;
+ const spots=Array.from({length:7},(_,j)=>({x:x+Math.cos(j*2.4)*rx*(j? .68:0),y:y+Math.sin(j*2.4)*ry*.7,r:i===1?20+j%3*5:10+j%3*3}));
+ return `<g class="care-zone" data-care-zone="${i}"><g class="brush-guide" opacity="${1-s.touch.brush[i]/100}">${spots.map(p=>`<path d="M${p.x-7} ${p.y-3}q3 9 7 0m1-2q3 12 8 1" fill="none" stroke="#d2a45f" stroke-width="2.5" opacity=".6"/>`).join('')}</g><g class="groomed-layer" style="opacity:${s.touch.brush[i]/100}">${spots.slice(0,4).map(p=>`<path d="m${p.x-9} ${p.y}q10 6 19-4" fill="none" stroke="#fff2ce" stroke-width="3" opacity=".8"/>`).join('')}</g><g class="dirt-layer" style="opacity:${1-s.touch.rinse[i]/100}">${spots.map(p=>`<path d="M${p.x-p.r} ${p.y}q-4 ${-p.r} ${p.r} ${-p.r*.8}q${p.r} -8 ${p.r*1.1} ${p.r*.7}q8 ${p.r} ${-p.r} ${p.r}q${-p.r} 5 ${-p.r*1.1} ${-p.r*.9}Z" fill="url(#spa-mud)" opacity=".65"/>`).join('')}</g><g class="soap-layer" style="opacity:${s.touch.soap[i]/100*(1-s.touch.rinse[i]/100)}">${spots.map(p=>`<g class="soap-bubble" fill="#f5ffff" fill-opacity=".85" stroke="#b1d9dc" stroke-width="2"><circle cx="${p.x}" cy="${p.y}" r="${p.r+4}"/><circle cx="${p.x+p.r}" cy="${p.y+7}" r="${p.r*.7}"/><path d="M${p.x-p.r*.5} ${p.y-3}q0 ${-p.r*.6} ${p.r*.6} ${-p.r*.6}" fill="none" stroke="#fff" stroke-width="3"/></g>`).join('')}</g><g class="wet-layer" style="opacity:${s.touch.rinse[i]/100*(1-s.touch.dry[i]/100)}">${spots.slice(0,4).map(p=>`<path class="water-drop" d="M${p.x} ${p.y-11}q-13 18 0 23 13-5 0-23" fill="#79bdd0" stroke="#d9f4f4" stroke-width="1.5"/>`).join('')}</g><g class="dry-spark" style="opacity:${s.touch.dry[i]/100}">${spots.slice(0,3).map(p=>`<path d="M${p.x-8} ${p.y}h16M${p.x} ${p.y-8}v16" stroke="#fff9df" stroke-width="3" stroke-linecap="round"/>`).join('')}</g></g>`;
+ }).join('')}</g></svg>`;
+}

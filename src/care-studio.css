@@ -1,0 +1,44 @@
+/* Keep the native pointer even while the illustrated tool is loading. */
+.touch-surface,.craft-wall[data-surface]{cursor:crosshair;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.touch-surface svg,.touch-surface img{pointer-events:none}
+.finger-tool{width:58px;height:58px;font-size:40px;transform:translate(13px,-52px);filter:drop-shadow(0 3px 3px #73566b40);transition:opacity .1s;overflow:visible}
+.finger-tool::before{content:"";position:absolute;left:-20px;top:45px;width:12px;height:12px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 2px #78678d;background:var(--tool-color,#d1b3d9)}
+.finger-tool.moving{opacity:.96}.finger-tool.pressed{opacity:1}.finger-tool.pressed::before{box-shadow:0 0 0 2px #78678d,0 0 0 9px #fff7}
+.finger-tool.flip-x{margin-left:-82px}.finger-tool.flip-y{margin-top:53px}.finger-tool.flip-x::before{left:62px}.finger-tool.flip-y::before{top:-8px}
+.finger-tool .tool-picture{width:100%;height:100%;overflow:visible}
+.dog-stage{background:radial-gradient(ellipse at 45% 40%,#fffdf7 0 24%,#eff1e3 75%);border:1px solid #e4e7d8;isolation:isolate}
+.dog-stage::before{content:"";position:absolute;left:14%;right:14%;bottom:78px;height:19%;border-radius:50%;background:repeating-linear-gradient(90deg,#b7cdc166 0 5px,#d9e6dc77 5px 11px);box-shadow:0 7px 20px #8eaa9a22;z-index:-1}
+.dog-activity.bath-time .dog-stage{background:linear-gradient(90deg,#d5e6df38 1px,transparent 1px),linear-gradient(#d5e6df38 1px,transparent 1px),radial-gradient(ellipse at 50% 35%,#fffdf6,#e4f0ec);background-size:64px 64px,64px 64px,auto}
+.care-studio-heading{position:absolute;top:13px;left:18px;z-index:3;display:flex;align-items:center;gap:9px;pointer-events:none;color:#657e72;font-size:12px;letter-spacing:.3px}
+.care-studio-heading>span{width:32px;height:32px;background:#fff8ec;border-radius:50%;display:grid;place-items:center;font-size:20px;box-shadow:0 2px 7px #84938418}
+.care-status{min-height:48px;display:flex;align-items:center;gap:12px;padding:10px 13px;margin:13px 0 8px;border-radius:16px;background:#ecf2e9;color:#526e60;font-size:13px;line-height:1.4}
+.care-status>span{font-size:26px}.care-status b{display:block;font-weight:600}.care-status small{font-size:11px;color:#687e70}
+.care-guidance{position:absolute;inset:0;pointer-events:none;z-index:3;width:100%;height:100%}
+.care-target{opacity:0;transition:opacity .2s}.care-target.is-next,.care-target.is-active{opacity:1}.care-target.is-done{opacity:.55}
+.care-target>ellipse{fill:#fffbe60d;stroke:#fff8db;stroke-width:4;stroke-dasharray:12 13;filter:drop-shadow(0 1px 2px #665b4877)}
+.care-target.is-active>ellipse{stroke:#fff;stroke-width:6;fill:#fff7d51c;stroke-dasharray:none}
+.care-target.is-blocked>ellipse{stroke:#dfb17e;fill:#eac59a30}
+.care-target.is-done>ellipse{opacity:0}.care-target-badge circle{fill:#fffcf0;stroke:#91b5a0;stroke-width:3}.care-target-badge text{font:600 23px system-ui;fill:#618371}
+.care-zone-list>div.next-region{color:#5c7768;background:#eff4e9;border-radius:10px;padding:7px;margin:-7px}
+.care-zone-list>div.is-working{color:#83649b}.care-zone-list>div.is-working progress{accent-color:#ab87b4}
+.care-zone-list progress,.care-total progress{accent-color:#8eaf97}.dog-activity .touch-tip{color:#5a7467;font-size:13px}.care-total span{color:#5d7869;font-size:12px;min-width:42px;white-space:nowrap}
+.bath-sequence{align-items:center}.bath-sequence .current{background:#e7f0e7;box-shadow:0 0 0 2px #a9c5ad;color:#53725e}
+.dog-tray .touch-tool,.salon-tray .touch-tool{color:#6d5874}.dog-tray .picture-coach p,.salon-tray .picture-coach p{color:#775f78}
+.dog-canvas.is-caring .identity-dog{filter:drop-shadow(0 3px 2px #bc9b6b20)}
+.care-effects .water-drop{transform-box:fill-box;transform-origin:center;animation:spa-drop 1.4s ease-in infinite}
+.care-effects .soap-bubble{transform-box:fill-box;transform-origin:center;animation:spa-bubble 2.4s ease-in-out infinite alternate}
+.care-effects .soap-bubble:nth-child(2n){animation-delay:-1.2s}.care-effects .water-drop:nth-child(2n){animation-delay:-.6s}
+.care-effects .groomed-layer{transition:opacity .2s}.care-effects .dry-spark{transition:opacity .2s}
+@keyframes spa-drop{0%{transform:translateY(-3px);opacity:.55}75%{opacity:1}100%{transform:translateY(11px);opacity:.1}}
+@keyframes spa-bubble{from{transform:translateY(2px) scale(.96)}to{transform:translateY(-3px) scale(1.04)}}
+@media(max-height:600px) and (orientation:landscape){.care-studio-heading{top:7px;left:10px;font-size:11px}.care-studio-heading>span{width:26px;height:26px;font-size:17px}.care-status{margin:8px 0;padding:8px 10px;min-height:43px}.care-zone-list{gap:9px;margin:17px 0}.dog-activity .touch-tip{font-size:11px}}
+@media(max-width:599px){.care-studio-heading{font-size:10px;top:7px;left:10px}.care-status{font-size:12px}.dog-activity .touch-tip{font-size:11px}.finger-tool{width:48px;height:48px}}
+@media(prefers-reduced-motion:reduce){.care-effects *{animation:none!important}.finger-tool,.care-target{transition:none}}
+
+.finger-tool.pressed .tool-picture{animation:tool-wiggle .3s ease-in-out infinite alternate;transform-origin:50% 70%}
+@keyframes tool-wiggle{to{transform:rotate(7deg)}}
+.care-feeling{position:absolute;right:5%;top:23%;padding:10px 15px;background:#fffaf0;border:2px solid #e1d2c1;border-radius:20px 20px 20px 4px;color:#6a7d62;font-size:14px;box-shadow:0 3px 10px #8a77691a;opacity:0;transform:translateY(5px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:5}
+.dog-canvas.is-caring .care-feeling{opacity:1;transform:translateY(0)}
+.touch-tool>.care-tool-art{width:40px;height:40px}.care-tool-art .tool-picture{width:100%;height:100%}
+@media(max-height:600px){.touch-tool>.care-tool-art{width:32px;height:32px}.care-feeling{font-size:11px;padding:7px 10px}}
+@media(prefers-reduced-motion:reduce){.finger-tool.pressed .tool-picture{animation:none}.care-feeling{transition:none}}
