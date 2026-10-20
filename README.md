@@ -1,6 +1,6 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.12.1 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.13.0 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
 
 Rummet visas snett ovanifrån som en isometrisk, öppen spelmiljö med två bakväggar, botanisk tapet, målad panel och fiskbensparkett. Quiltade textilier, veckade gardiner, kosmetik, bokryggar och porslin ger fler detaljer. Möblerna får mjuka kontaktskuggor; dagsljus på golvet följer dag/natt och gardiner. Lea och Sigge är animerade 3D-modeller som hör ihop med möblernas skala. Plus och minus förstorar rummet; husknappen återställer hela utsnittet. Verktyg påverkar inte kamerans skala. Sex stora bildval samlar kläder, smink, rithörna, Sigge, lek och inredning i en meny längst ner. Tryck på Lea, Sigge eller en möbel för små val direkt i rummet. Inredning har tydlig Klar-knapp och Ångra. Små koppar får förlåtande tryckytor och vardagsgester roterar inte kameran. Leas valda kläder, hår, accessoarer och ansiktsmålning visas också på rummets 3D-figur. Figurerna rör sig i 3D-rummet och kan dansa och hoppa. Inne i rummet går det att kasta bollen till Sigge, hälla låtsaste genom att dra och hålla kannan, hitta gömda stjärnor, locka fram en fjäril och ta riktiga rumsfoton till albumet. Se [dockhuset](docs/dockhuset.md).
 
@@ -77,3 +77,15 @@ Efter ett onlinebesök cachas spelets egna filer. Privat inloggning och enhetens
 Det tidigare husprojektet finns kvar på grenen `archive/house-before-kids-game-2026-10-19` och i Git-historiken.
 
 Startfix 0.12.1: upprepade pageshow-händelser återanvänder den befintliga renderaren. Fokusbyte och gömd flik pausar rummet utan att förstöra grafikkontexten. Fokus eller återställd grafikkontext återupptar samma scen. Startfel visar fas och ursprungligt fel i Teknisk info och kan provas igen.
+
+## Leas nya lekar (0.13)
+
+Öppna **Lek** i rummet. Sex bildval leder till Bygg & lek, Djurklinik, Nallens kafé, Camping hemma, Mina skapelser och Sigges bus. I Bygg & lek finns klossar, egenritad bilbana och xylofon. Toner går att spela in och lyssna på; Sigge följer bilen och kan välta ett klosstorn.
+
+Sigges bus varierar mellan toffel, filt och strumpa. Det kan börja under fri lek eller väljas i menyn. Busa klart genom att ropa, byta mot bollen, klappa eller flytta filten. Buset syns på 3D-figuren och ersätter inte ett redan pågående bus.
+
+Djurkliniken knyter ihop hållen lyssning på bröstet, ett plåster på tassen, bäddning och matning. Kaféet kräver beställda frukter, omrörning, hållen hällning och servering; nästa omgång byter beställning. På campingen dras två kuddar och en filt till kojan, tre eldflugor hittas med ficklampan och Sigge klappas till sömns. Efteråt finns en koja och kvällsljus i grundmöblerade rummet.
+
+Färgläggningar kan bli fyrabitars pussel, tröjtryck i både klädvyer och 3D-rum, samt dekoration i rummet, kaféet, paraden och tebjudningen. Bilderna bygger på faktiskt sparade penseldrag och fyllningar. Tryck och dekorationer sparas som små PNG-ögonblicksbilder; pussel använder den valda bildens aktuella målning. Även fria teckningar fungerar.
+
+Sparformatet är fortsatt version 1 och äldre sparningar får nya, oberoende lekfält. Fingerhanteringen stöder avbrott, extra fingrar, storleksbyte och återupptagning. De nya scenerna fungerar även med rummets 2D-reservvy. Webbläsarens verkliga layout, ljud och fysisk iPad behöver fortfarande verifieras i en riktig webbläsare.

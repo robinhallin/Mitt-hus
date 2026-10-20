@@ -1,4 +1,4 @@
-# Leas rum – version 0.12.1
+# Leas rum – version 0.13.0
 
 Rummet är en lokal WebGL-scen med riktiga 3D-modeller av möbler och leksaker samt animerade 3D-modeller av Lea och Sigge. Det använder den medföljande MIT-licensierade Three.js-motorn; inga externa resurser behövs för rummet.
 
@@ -21,7 +21,7 @@ Kameran anpassas till stående och liggande skärm. Grafikens upplösning och bi
 
 Alla nya värden läggs till befintligt sparformat. Gamla kläder, målningar, möbler och framsteg behålls. Dörrar, gardiner, ljus, möbler, koja, bildramar och kamera sparas lokalt med resten av spelet.
 
-156 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
+174 tester passerar, inklusive riktiga scenmodeller, kamerans utsnitt, ray/AABB-val, navigering, möbelplacering, kojans hela cykel, sparning och pekhändelser med verklig 3D-projektion. Renderer är utbytt i de automatiska kontrollertesterna. Produktionsgeometrin har granskats genom en separat CPU-rendering. WebGL, full webbläsarlayout och fysisk iPad återstår att verifiera på en riktig enhet.
 
 
 ## Liggande spelvy och mer liv (0.9)
@@ -63,3 +63,11 @@ Rummet har egen lokalt genererad botanisk tapet, målad panel, fiskbensparkett, 
 ## Start och fokus (0.12.1)
 
 Mount är idempotent för samma canvas. Vid blur, dold flik och pagehide pausas animationerna medan scen och renderer behålls. Focus, synlig flik och pageshow återupptar rummet. Kontexten frigörs när rummet faktiskt lämnas. Lyssnare för förlorad och återställd WebGL-kontext tas bort vid detach. Startfel och fel i bildloopen visar ursprunglig orsak och steg i en utfällbar Teknisk info-ruta, med knapp för ett nytt startförsök. Det generiska felet ger inte längre sken av en fastställd enhetsbegränsning.
+
+## Fri lek och fantasi (0.13)
+
+Lek-menyn har sex huvudingångar. Klossar går att stapla med stöd; det går att rita en bilväg och lyssna på en egen xylofonmelodi. Kliniken, kaféet och campingen har separata, återspelbara fingerflöden och sparad delprogress. Campingen påverkar rummets koja och kvällsljus. Kaféet tar emot Leas egna kalasbilder.
+
+Sigge kan bära en toffel, gömma sig under en filt eller komma med en strumpa. Bus väljs i en varierad följd och startar inte över ett olöst bus. Kortet i rummet erbjuder ropa eller byteslek; själva figuren visar buset.
+
+Mina skapelser gör pussel av sparade färgläggningar och exporterar begränsade PNG-bilder till tröjtryck och kalasdekoration. Bildrutorna och pusselbitarna behåller kvadratisk form även i bred liggande visning. Framsteg, väg, toner, besök och egna skapelser ingår i befintlig lokal sparning. Nya tester provar riktiga kontrollergester i två skärmformat, fulla lekflöden, felaktiga steg, avbrott, skalning och bevarade äldre sparningar.

@@ -16,6 +16,7 @@ ${c.bottom!==(c.outfit==='trousers'||bib?4:1)||c.outfit==='dress'?`<g clip-path=
 <g clip-path="url(#lea-top-area)" mask="url(#${coolTop?'cool':'pink'}-mask)"><rect x="230" y="350" width="560" height="${coolTop?550:380}" fill="url(#clothing-pattern)"/></g>
 ${c.outfit==='dress'?'<g clip-path="url(#lea-bottom-area)" mask="url(#cool-mask)"><rect x="210" y="690" width="610" height="690" fill="url(#clothing-pattern)" opacity=".65"/></g>':''}
 ${c.shoes!==0?`<g clip-path="url(#lea-shoes)" mask="url(#shoe-mask)">${image('filter="url(#shoe-tint)"')}</g>`:''}
+${s.dollhouse?.play?.imagine?.creations?.shirt?'<image class="lea-own-print" href="'+s.dollhouse.play.imagine.creations.shirt.image+'" x="430" y="495" width="170" height="170" clip-path="url(#lea-top-area)"/>':''}
 ${leaAccessories(c,{layer:'body'})}
 ${identityLayers(s,prefix)}
 <g transform="translate(308 84) scale(418 363)">${makeupDefinitions(prefix)}<g class="makeup-paint-layer">${makeupPaint(s,null,prefix)}</g></g>
