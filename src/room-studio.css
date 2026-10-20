@@ -33,3 +33,6 @@
 .room-view-controls button:active{background:#d3e2cc}
 @media(orientation:landscape) and (max-height:600px){.room-studio .room-view-controls{bottom:90px;left:12px}}
 @media(orientation:portrait){.room-studio .room-view-controls{bottom:100px}}
+
+.room-studio .room-start-error{position:absolute;z-index:9;left:16px;top:80px;width:min(380px,calc(100% - 32px));max-height:calc(100% - 190px);overflow:auto;padding:18px;background:#fffaf2f5;border:2px solid white;border-radius:20px;box-shadow:0 6px 26px #40363530;color:#514c46}
+.room-start-error[hidden]{display:none!important}.room-start-error>strong{font-size:17px}.room-start-error p{font-size:13px;line-height:1.5;margin:9px 0}.room-start-error>button{min-height:44px;padding:10px 18px;background:#598778;color:white;border-radius:12px;font-weight:bold}.room-start-error details{margin-top:12px;font-size:12px}.room-start-error summary{cursor:pointer;min-height:30px}.room-start-error pre{white-space:pre-wrap;overflow-wrap:anywhere;user-select:text;font-size:11px;background:#eee8db;padding:10px;border-radius:8px}
