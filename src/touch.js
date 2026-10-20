@@ -38,3 +38,5 @@ export function guidePaintPoint(tool,p){
  if(!z)return p;const length=Math.hypot((p.x-z.x)/z.rx,(p.y-z.y)/z.ry);
  return{x:z.x+(p.x-z.x)/length*.9,y:z.y+(p.y-z.y)/length*.9};
 }
+
+export function undoPaint(s){s.touch.paint.pop();s.makeup={lips:null,cheeks:null,eyes:null};for(const stroke of s.touch.paint)if(['cheeks','lips','eyes'].includes(stroke.tool))s.makeup[stroke.tool]=stroke.color;}

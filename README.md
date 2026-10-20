@@ -1,6 +1,6 @@
 # Lea & Sigge – Min lilla värld
 
-Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.13.0 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
+Ett personligt, lugnt lekspel för Lea och hennes golden retriever Sigge, byggt för surfplatta och iPad. Version 0.14.0 innehåller ett lekbart 3D-dockhus, fri möblering, sju lekområden och tre sammanhängande äventyr. Spelet använder svenska, tydliga bilder och stora knappar, med frivillig uppläsning om enheten har en svensk röst.
 
 Rummet visas snett ovanifrån som en isometrisk, öppen spelmiljö med två bakväggar, botanisk tapet, målad panel och fiskbensparkett. Quiltade textilier, veckade gardiner, kosmetik, bokryggar och porslin ger fler detaljer. Möblerna får mjuka kontaktskuggor; dagsljus på golvet följer dag/natt och gardiner. Lea och Sigge är animerade 3D-modeller som hör ihop med möblernas skala. Plus och minus förstorar rummet; husknappen återställer hela utsnittet. Verktyg påverkar inte kamerans skala. Sex stora bildval samlar kläder, smink, rithörna, Sigge, lek och inredning i en meny längst ner. Tryck på Lea, Sigge eller en möbel för små val direkt i rummet. Inredning har tydlig Klar-knapp och Ångra. Små koppar får förlåtande tryckytor och vardagsgester roterar inte kameran. Leas valda kläder, hår, accessoarer och ansiktsmålning visas också på rummets 3D-figur. Figurerna rör sig i 3D-rummet och kan dansa och hoppa. Inne i rummet går det att kasta bollen till Sigge, hälla låtsaste genom att dra och hålla kannan, hitta gömda stjärnor, locka fram en fjäril och ta riktiga rumsfoton till albumet. Se [dockhuset](docs/dockhuset.md).
 
@@ -66,7 +66,7 @@ Kläder, smink, pyssel och framsteg sparas automatiskt i webbläsaren på den ak
 
 ## Verifiering och nästa nivå
 
-Version 0.10.0 passerar 148 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
+Version 0.14.0 passerar 181 automatiska tester. De täcker befintliga aktiviteter, bakåtkompatibel sparning, 3D-placering och kollisioner, vägar runt möbler, faktisk projicerad draginteraktion, avbrott, två fingrar, kamerans utsnitt och frigöring av grafikresurser. Dockhusets produktionsgeometri har också projicerats och visuellt granskats i en separat CPU-rendering. Detta verifierar scenens geometri men ersätter inte WebGL- eller webbläsartest. Full webbläsarlayout, verklig WebGL-prestanda och fysisk iPad har ännu inte verifierats i arbetsmiljön. Uppläsning beror på enhetens röster.
 
 ## Spela från iPads hemskärm
 
@@ -89,3 +89,12 @@ Djurkliniken knyter ihop hållen lyssning på bröstet, ett plåster på tassen,
 Färgläggningar kan bli fyrabitars pussel, tröjtryck i både klädvyer och 3D-rum, samt dekoration i rummet, kaféet, paraden och tebjudningen. Bilderna bygger på faktiskt sparade penseldrag och fyllningar. Tryck och dekorationer sparas som små PNG-ögonblicksbilder; pussel använder den valda bildens aktuella målning. Även fria teckningar fungerar.
 
 Sparformatet är fortsatt version 1 och äldre sparningar får nya, oberoende lekfält. Fingerhanteringen stöder avbrott, extra fingrar, storleksbyte och återupptagning. De nya scenerna fungerar även med rummets 2D-reservvy. Webbläsarens verkliga layout, ljud och fysisk iPad behöver fortfarande verifieras i en riktig webbläsare.
+
+
+## Tydligare verktyg och hundvård (0.14)
+
+Muspekaren behålls i smink, hundvård, tandborstning och väggritande. Ett illustrerat verktyg följer även mus/penna utan knapptryck; fingret får samma återkoppling under en rörelse. Arbetsmarkören visar exakt var rörelsen verkar. Enbart hovring eller en stilla tryckning ger inga framsteg.
+
+Sigges större träffytor, arbetsringar och markering för nästa kroppsdel använder samma koordinater som vården. Skum växer fram, leran sköljs bort, droppar följs av torr päls och glans. Mjuka reaktioner visas när verktyget träffar rätt. Bildverktygen i lådan matchar verktyget vid pekaren. Badets ordning och automatisk övergång mellan svamp, dusch och handduk finns kvar.
+
+Pekgrepp städas upp även vid förlorad capture, utan dubbla avslut. Sista positionen före släpp räknas med. Ångra smink återställer kvarvarande färgval och ansiktsguiden finns kvar även efter första målningen. Nya regressionstester täcker hovring, penna, extra fingrar, avbrott, koordinater och vårdmarkeringar. Hundens faktiska SVG-lager har dessutom granskats i en separat bildrendering; detta är ingen webbläsarskärmbild.
